@@ -1,4 +1,12 @@
 
 public class King extends Piece {
-	super;
+	
+	King(int x, int y, String color) {
+		super(x, y, color);
+	}
+	
+	@Override
+	public Square[] getValidMoves() {
+		
+	}
 }

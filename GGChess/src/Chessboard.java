@@ -3,30 +3,46 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class Chessboard extends JPanel {
-
-    Square[][] chessboard = new Square[8][8];
-    JButton[][] btns = new JButton[8][8];
+    private Square[][] board;
     Game game;
     
     Chessboard(Game game) {
     	this.game = game;
-        this.setSize(800, 800);
-        this.setBackground(Color.GRAY);
+    	board = new Square[8][8];
+    	initBoard();
+    	printBoard();
+    }
+    
+    public void initBoard() {
+    	// Create squares
+    	for (int x=0; x<8; x++) {
+    		for (int y=0; y<8; y++) {
+    			if ((x+y)%2 == 0) {
+    				board[x][y] = new Square(x*100, y*100, 'w');
+    			}
+    			else board[x][y] = new Square(x*100, y*100, 'b');
+    			this.add(board[x][y]);
+    		}
+    	}
+    	
+    	// Create and set pieces on board
+    	// A CONTINUER/CHANGER
+    	//board[0][0].setPiece(new Rook(0,0,"black"));
+    	// ...
+    	// Add squares to the panel
+    	//this.add(board[]...
+        
+    }
+    
+    public void printBoard() {
+    	this.setPreferredSize(new Dimension(800, 800));
         this.setLayout(new GridLayout(8, 8)); 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                btns[i][j] = new JButton();
-               	if ((i + j) % 2 == 0)
-                    btns[i][j].setBackground(Color.WHITE);
-                else
-                    btns[i][j].setBackground(Color.DARK_GRAY);
-               	final int x = i;
-                final int y = j;
-                btns[i][j].addActionListener(e -> {      //We add a listener for each button
-                    game.caseClicked(x, y);
-                });
-
-                this.add(btns[i][j]);
+    	this.setOpaque(false); 			// Make the panel transparent
+    	
+    	// Print squares
+    	for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+               	board[x][y].print();
             }
         }
     }

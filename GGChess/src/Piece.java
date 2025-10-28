@@ -1,21 +1,27 @@
 import javax.swing.*;
 
-public class Piece {
-	public boolean isWhite;
-	public int xpiece;
-	public int ypiece;
+public abstract class Piece {
+	protected int x, y;
+	protected String color;
 	
-	public Piece(int xpiece, int ypiece, boolean isWhite){
-		this.xpiece= xpiece;
-		this.ypiece= ypiece;
-		this.isWhite= isWhite;
+	public Piece(int x, int y, String color){
+		this.x = x;
+		this.y = y;
+		this.color = color;
 	}
 	
-	public void move() {
-		
+	// getters
+	public String getColor() {return this.color;}
+	
+	public void move(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 	
 	public void kill() {
 		
 	}
+	
+	// ----MODIF
+	public abstract Square[] getValidMoves();
 }
