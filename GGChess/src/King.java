@@ -1,7 +1,7 @@
 
 public class King extends Piece {
 	
-	King(int x, int y, String color) {
+	public King(int x, int y, String color) {
 		super(x, y, color);
 	}
 	
