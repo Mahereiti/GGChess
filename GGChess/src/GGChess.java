@@ -9,9 +9,10 @@ public class GGChess extends JFrame {
 		this.setTitle("GGChess");
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
+		Game game = new Game();                 
+        Chessboard chessboard = new Chessboard(game);
+        
 		JPanel activePlayers = new JPanel();
-		
-		Chessboard chessboard = new Chessboard();
 		
 		this.add(activePlayers, BorderLayout.WEST);
 		this.add(chessboard, BorderLayout.CENTER);
