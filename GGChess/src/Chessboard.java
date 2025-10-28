@@ -26,7 +26,7 @@ public class Chessboard extends JPanel {
     	}
     	
     	// Create and set pieces on board
-    	// A CONTINUER/CHANGER
+    	King wKing = new King(
     	//board[0][0].setPiece(new Rook(0,0,"black"));
     	// ...
     	// Add squares to the panel
