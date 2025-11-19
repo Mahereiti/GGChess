@@ -1,9 +1,9 @@
 
 public class Bishop extends Piece {
 
-	public Bishop(int x,int y,String color) {
-		super(x,y,color);
+	public Bishop(int x,int y,String color,Square[][] board) {
+		super(x,y,color,board);
 	}
 	
-	public abstract Square[] getValidMoves() {}
+	public Square[] getValidMoves() {}
 }
