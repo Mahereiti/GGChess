@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -6,12 +5,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+// Main class which links every parts of the app
 public class GGChess extends JFrame {
 	Image bg; 		// background image
 	
 	GGChess() {
 		this.setTitle("GGChess");
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//this.setUndecorated(true); 	// No borders
 		
 		// Draw over a transparent JPanel
         this.setContentPane(new JPanel() {
@@ -36,8 +37,5 @@ public class GGChess extends JFrame {
 	public static void main(String[] args) {
 		GGChess ggc = new GGChess();
 		ggc.setVisible(true);
-		
-
 	}
-
 }

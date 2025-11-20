@@ -1,7 +1,7 @@
 import java.awt.*;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
+// Represents the entire chessboard, which extends JPanel
 public class Chessboard extends JPanel {
     private Square[][] board;
     Game game;
@@ -9,100 +9,63 @@ public class Chessboard extends JPanel {
     Chessboard(Game game) {
     	this.game = game;
     	board = new Square[8][8];
-    	initBoard();
-    	printBoard();
+    	initBoard(); 		// Fill board with squares and initialize pieces
+    	printBoard();		// Print board
     }
     
     public void initBoard() {
-    	// Create squares
+    	// Create squares line by line
+    	// Go through rows then lines because of add() which add rows by rows
     	for (int x=0; x<8; x++) {
     		for (int y=0; y<8; y++) {
-    			if ((x+y)%2 == 0) {
-    				board[x][y] = new Square(x*100, y*100, 'w');
-    			}
-    			else board[x][y] = new Square(x*100, y*100, 'b');
-    			this.add(board[x][y]);
+    			// create white or black square
+    			if ((x+y)%2 == 0) board[x][y] = new Square(y*100, x*100, 'w', this.board);
+    			else board[x][y] = new Square(y*100, x*100, 'b', this.board);
+    			this.add(board[x][y]); 		// add square on the panel Chessboard
     		}
     	}
     	
     	// Create and set pieces on board
-    	King bKing = new King(0,4,"black",this.board);
-    	King wKing = new King(7,3,"white",this.board);
-    	Queen bQueen = new Queen(0,3,"black",this.board);
-    	Queen wQueen = new Queen(7,4,"white",this.board);
-    	Rook bRook1 = new Rook(0,0,"black",this.board);
-    	Rook wRook1 = new Rook(7,3,"white",this.board);
-    	Rook bRook2 = new Rook(0,7,"black",this.board);
-    	Rook wRook2 = new Rook(7,7,"white", this.board);
-    	Bishop bBishop1 = new Bishop(0,2,"black", this.board);
-    	Bishop wBishop1 = new Bishop(7,2,"white", this.board);
-    	Bishop bBishop2 = new Bishop(0,5,"black", this.board);
-    	Bishop wBishop2 = new Bishop(7,5,"white", this.board);
-    	Knight bKnight1 = new Knight(0,1,"black", this.board);
-    	Knight wKnight1 = new Knight(7,1,"white", this.board);
-    	Knight bKnight2 = new Knight(0,6,"black", this.board);
-    	Knight wKnight2 = new Knight(7,6,"white", this.board);
-    	Pawn bPawn1 = new Pawn(1,0,"black", this.board);
-    	Pawn bPawn2 = new Pawn(1,1,"black", this.board);
-    	Pawn bPawn3 = new Pawn(1,2,"black", this.board);
-    	Pawn bPawn4 = new Pawn(1,3,"black", this.board);
-    	Pawn bPawn5 = new Pawn(1,4,"black", this.board);
-    	Pawn bPawn6 = new Pawn(1,5,"black", this.board);
-    	Pawn bPawn7 = new Pawn(1,6,"black", this.board);
-    	Pawn bPawn8 = new Pawn(1,7,"black", this.board);
-    	Pawn wPawn1 = new Pawn(6,0,"white", this.board);
-    	Pawn wPawn2 = new Pawn(6,1,"white", this.board);
-    	Pawn wPawn3 = new Pawn(6,2,"white", this.board);
-    	Pawn wPawn4 = new Pawn(6,3,"white", this.board);
-    	Pawn wPawn5 = new Pawn(6,4,"white", this.board);
-    	Pawn wPawn6 = new Pawn(6,5,"white", this.board);
-    	Pawn wPawn7 = new Pawn(6,6,"white", this.board);
-    	Pawn wPawn8 = new Pawn(6,7,"white", this.board);
-    	//board[0][0].setPiece(new Rook(0,0,"black"));
-    	board[0][0].setPiece(bRook1);
-    	board[0][1].setPiece(bKnight1);
-    	board[0][2].setPiece(bBishop1);
-    	board[0][3].setPiece(bQueen);
-    	board[0][4].setPiece(bKing);
-    	board[0][5].setPiece(bBishop2);
-    	board[0][6].setPiece(bKnight2);
-    	board[0][7].setPiece(bRook2);
-    	board[1][0].setPiece(bPawn1);
-    	board[1][1].setPiece(bPawn2);
-    	board[1][2].setPiece(bPawn3);
-    	board[1][3].setPiece(bPawn4);
-    	board[1][4].setPiece(bPawn5);
-    	board[1][5].setPiece(bPawn6);
-    	board[1][6].setPiece(bPawn7);
-    	board[1][7].setPiece(bPawn8);
-    	board[7][0].setPiece(wRook1);
-    	board[7][1].setPiece(wKnight1);
-    	board[7][2].setPiece(wBishop1);
-    	board[7][3].setPiece(wQueen);
-    	board[7][4].setPiece(wKing);
-    	board[7][5].setPiece(wBishop2);
-    	board[7][6].setPiece(wKnight2);
-    	board[7][7].setPiece(wRook2);
-    	board[6][0].setPiece(wPawn1);
-    	board[6][1].setPiece(wPawn2);
-    	board[6][2].setPiece(wPawn3);
-    	board[6][3].setPiece(wPawn4);
-    	board[6][4].setPiece(wPawn5);
-    	board[6][5].setPiece(wPawn6);
-    	board[6][6].setPiece(wPawn7);
-    	board[6][7].setPiece(wPawn8);
-    	// ...
-    	// Add squares to the panel
-    	//this.add(board[]...
-        
+    	board[0][0].setPiece(new Rook("black"));
+    	board[0][1].setPiece(new Knight("black"));
+    	board[0][2].setPiece(new Bishop("black"));
+    	board[0][3].setPiece(new Queen("black"));
+    	board[0][4].setPiece(new King("black"));
+    	board[0][5].setPiece(new Bishop("black"));
+    	board[0][6].setPiece(new Knight("black"));
+    	board[0][7].setPiece(new Rook("black"));
+    	board[1][0].setPiece(new Pawn("black"));
+    	board[1][1].setPiece(new Pawn("black"));
+    	board[1][2].setPiece(new Pawn("black"));
+    	board[1][3].setPiece(new Pawn("black"));
+    	board[1][4].setPiece(new Pawn("black"));
+    	board[1][5].setPiece(new Pawn("black"));
+    	board[1][6].setPiece(new Pawn("black"));
+    	board[1][7].setPiece(new Pawn("black"));
+    	board[7][0].setPiece(new Rook("white"));
+    	board[7][1].setPiece(new Knight("white"));
+    	board[7][2].setPiece(new Bishop("white"));
+    	board[7][3].setPiece(new Queen("white"));
+    	board[7][4].setPiece(new King("white"));
+    	board[7][5].setPiece(new Bishop("white"));
+    	board[7][6].setPiece(new Knight("white"));
+    	board[7][7].setPiece(new Rook("white"));
+    	board[6][0].setPiece(new Pawn("white"));
+    	board[6][1].setPiece(new Pawn("white"));
+    	board[6][2].setPiece(new Pawn("white"));
+    	board[6][3].setPiece(new Pawn("white"));
+    	board[6][4].setPiece(new Pawn("white"));
+    	board[6][5].setPiece(new Pawn("white"));
+    	board[6][6].setPiece(new Pawn("white"));
+    	board[6][7].setPiece(new Pawn("white"));
     }
     
     public void printBoard() {
-    	this.setPreferredSize(new Dimension(800, 800));
-        this.setLayout(new GridLayout(8, 8)); 
+    	this.setPreferredSize(new Dimension(800, 800)); // Size of panel 800*800
+        this.setLayout(new GridLayout(8, 8)); 	// To organize squares in a grid
     	this.setOpaque(false); 			// Make the panel transparent
     	
-    	// Print squares
+    	// Print squares (black or transparent for white square)
     	for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                	board[x][y].print();
