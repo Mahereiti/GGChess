@@ -1,8 +1,9 @@
 
 public class Rook extends Piece{
-	public Rook(int x,int y,String color, Square[][] board) {
-		super(x,y,color, board);
+	public Rook(String color) {
+		super(color, "/"+color+"_pieces/rook.png");
 	}
 	
-	public abstract Square[] getValidMoves() {}
+	public Square[] getValidMoves() {
+		return null;}
 }

@@ -1,12 +1,13 @@
 
 public class King extends Piece {
 	
-	public King(int x, int y, String color, Square[][] board) {
-		super(x, y, color, board);
+	public King(String color) {
+		super(color, "/"+color+"_pieces/king.png");
 	}
 	
 	@Override
 	public Square[] getValidMoves() {
+		return null;
 		
 	}
 }

@@ -1,43 +1,24 @@
+import java.awt.Image;
 import javax.swing.*;
 
 public abstract class Piece {
-	protected int x, y;
 	protected String color;
-	private Square[][] board;
+	protected ImageIcon icon;
 	
-	public Piece(int x, int y, String color, Square[][] board){
-		this.x = x;
-		this.y = y;
+	public Piece(String color, String path){
 		this.color = color;
-		this.board = board;
+		this.icon = new ImageIcon(getClass().getResource(path));
 	}
 	
 	// getters
 	public String getColor() {return this.color;}
 	
-	//setters
-	public void setPiecePosition(int x,int y) {
-		this.x= x;
-		this.y= y;
-		
-	}
+	public ImageIcon getIcon() {return this.icon;}
 	
-	public void move(Square initSquare,Square finalSquare) {
-
-        //collect the piece from initSquare
-        Piece p = initSquare.getPion();
-
-        if (p == null) {return;} //Verify is the square contains the piece
-
-        //update of the position of the piece
-        else {p.setPiecePosition(finalSquare.getX(), finalSquare.getY());}
-
-        //Put the piece in the final Square
-        finalSquare.setPiece(p);
-
-        //Remove the piece from the init Square
-        //initSquare.setPiece(null);
-		
+	// Move the piece from the initial to the final square
+	public void move(Square initSquare, Square finalSquare) {
+        finalSquare.setPiece(initSquare.getPiece()); 	//Put the piece in the final Square
+        initSquare.setPiece(null); 		//Remove the piece from the init Square
 	}
 
 	public void kill() {

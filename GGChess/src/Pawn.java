@@ -1,8 +1,9 @@
 
 public class Pawn extends Piece {
-	public Pawn(int x,int y,String color, Square[][] board) {
-		super(x,y,color, board);
+	public Pawn(String color) {
+		super(color, "/"+color+"_pieces/pawn.png");
 	}
 	
-	public Square[] getValidMoves() {}
+	public Square[] getValidMoves() {
+		return null;}
 }

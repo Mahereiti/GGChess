@@ -1,8 +1,9 @@
 
 public class Knight extends Piece {
-	public Knight(int x,int y,String color, Square[][] board) {
-		super(x,y,color, board);
+	public Knight(String color) {
+		super(color, "/"+color+"_pieces/knight.png");
 	}
 	
-	public Square[] getValidMoves() {}
+	public Square[] getValidMoves() {
+		return null;}
 }
