@@ -1,13 +1,17 @@
+import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 // Main class which links every parts of the app
 public class GGChess extends JFrame {
 	Image bg; 		// background image
+	CardLayout cardLayout;
+	JPanel mainPanel;
 	
 	GGChess() {
 		this.setTitle("GGChess");
@@ -24,15 +28,29 @@ public class GGChess extends JFrame {
             }
         });
 		
-		Game game = new Game();
-        Chessboard chessboard = new Chessboard(game);
-		JPanel activePlayers = new JPanel();
+        // CardLayout and panels
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+        Menu menuPanel = new Menu(this);
+		Game gamePanel = new Game(this);
 		
-		// Add panels on frame
-		this.add(activePlayers);
-		this.add(chessboard);
+		// Add differents panels (windows) to the mainPanel
+		mainPanel.add(gamePanel, "game");
+		mainPanel.add(menuPanel, "menu");
+		
+		this.add(mainPanel);
+		mainPanel.setOpaque(false);
+        
+		showMenu();		
 	}
-
+	
+	public void showMenu() {
+		cardLayout.show(this.mainPanel, "menu");
+	}
+	
+	public void showGame() {
+		cardLayout.show(this.mainPanel, "game");
+	}
 	
 	public static void main(String[] args) {
 		GGChess ggc = new GGChess();
