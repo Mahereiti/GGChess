@@ -37,7 +37,10 @@ public class Square extends Cliquable {
 		this.piece = piece;
 		// update image of piece
     	if (piece == null) setIcon(null);
-    	else setIcon(piece.getIcon());
+    	else {
+    		setIcon(piece.getIcon());
+    		piece.setSquare(this);   //link between the square and the piece
+    	}
     }
     
     // Contains piece or not
