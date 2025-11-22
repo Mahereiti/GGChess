@@ -21,4 +21,18 @@ public class Game extends JPanel {
 		this.setOpaque(false);
 		
 	}
+	
+	public void Game() {
+		Player player1 = new Player("white");
+		Player player2 = new Player("black");
+		Square initSquare;
+		Square finalSquare;
+		Player CurrentPlayer = player1; 
+		if(initSquare.getPiece()!=null) {
+			if(initSquare.getPiece().getColor().equals(CurrentPlayer.getColor())){
+				initSquare.getPiece().move(initSquare, finalSquare);
+			}
+			
+		}
+	}
 }
