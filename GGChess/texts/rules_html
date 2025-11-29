@@ -1,0 +1,43 @@
+<html>
+<div style='color:white; font-size:14px; padding: 0px 20px 0px 20px;'>
+
+<h2 style='font-size:20px'>Objectif du jeu</h2>
+<p>
+Le but du jeu est de mettre le roi adverse en échec et mat, 
+c’est-à-dire le placer sous attaque de façon à ce qu’il ne puisse plus s’échapper. 
+Le roi ne peut jamais être capturé : la partie s’arrête dès qu’un joueur ne peut plus le sauver.
+</p>
+
+<h2 style='font-size:20px'>Les pièces et leurs déplacements</h2>
+<p>Chaque joueur commence avec 16 pièces : 1 roi, 1 reine, 2 tours, 
+2 fous, 2 cavaliers et 8 pions.</p>
+
+<ul>
+<li><b>Tour</b> : se déplace d’un nombre quelconque de cases verticalement ou horizontalement.</li>
+<li><b>Fou</b> : se déplace d’un nombre quelconque de cases en diagonale.</li>
+<li><b>Cavalier</b> : se déplace en forme de L (2 cases puis 1 case perpendiculairement). 
+Il peut sauter par-dessus les autres pièces.</li>
+<li><b>Reine</b> : se déplace en ligne droite, horizontalement, verticalement ou en diagonale.</li>
+<li><b>Roi</b> : se déplace d’une seule case dans n’importe quelle direction.</li>
+<li><b>Pion</b> : avance d’une case (ou de deux cases lors de son premier déplacement). 
+Il capture uniquement en diagonale.</li>
+</ul>
+
+<p>Les déplacements possibles peuvent être mis en surbrillance pour aider à visualiser les options.</p>
+
+<h2 style='font-size:20px'>Échec et échec et mat</h2>
+<ul>
+<li><b>Échec</b> : le roi est menacé par une pièce adverse. 
+Le joueur doit immédiatement jouer un coup qui enlève cette menace.</li>
+<li><b>Échec et mat</b> : le roi est en échec et aucun mouvement légal ne peut le sauver. 
+La partie est alors perdue pour le joueur attaqué.</li>
+</ul>
+
+<h2 style='font-size:20px'>Règles supplémentaires</h2>
+<ul>
+<li>On ne peut jamais jouer un coup qui laisse son propre roi en échec.</li>
+<li>Si aucun joueur ne peut forcer un échec et mat, la partie peut se terminer par match nul.</li>
+</ul>
+
+</div>
+</html>
