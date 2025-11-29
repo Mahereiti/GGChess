@@ -8,7 +8,7 @@ public class Square extends Cliquable {
     private Piece piece;		// Piece on square
     private Square[][] board;
     
-    public Square(int x, int y, char color, Square[][] board) {
+    public Square(int x, int y, char color, Square[][] board,Game game) {
     	super(x, y, 100, 100);
         this.x = x;
         this.y = y;
@@ -16,7 +16,7 @@ public class Square extends Cliquable {
         this.board = board;
         this.piece = null;	// Square contains nothing
         
-        Mouse m = new Mouse();
+        Mouse m = new Mouse(game);
         // Add ActionListener to handle click
         this.addActionListener(e -> m.clickOnSquare(this));
     }

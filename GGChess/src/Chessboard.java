@@ -19,8 +19,8 @@ public class Chessboard extends JPanel {
     	for (int x=0; x<8; x++) {
     		for (int y=0; y<8; y++) {
     			// create white or black square
-    			if ((x+y)%2 == 0) board[x][y] = new Square(y*100, x*100, 'w', this.board);
-    			else board[x][y] = new Square(y*100, x*100, 'b', this.board);
+    			if ((x+y)%2 == 0) board[x][y] = new Square(y*100, x*100, 'w', this.board,this.game);
+    			else board[x][y] = new Square(y*100, x*100, 'b', this.board, this.game);
     			this.add(board[x][y]); 		// add square on the panel Chessboard
     		}
     	}
