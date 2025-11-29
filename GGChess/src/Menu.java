@@ -104,6 +104,7 @@ public class Menu extends JPanel {
 		rulesTextPane.setEditable(false);	// Not editable (read only)
 		rulesTextPane.setText(rules);		// Load html String
 		rulesTextPane.setOpaque(false);		// Transparent
+		rulesTextPane.setCaretPosition(0);	// Force scroll to top
 		
 		// ScrollPane to be able to "scroll"
 		JScrollPane scrollPane = new JScrollPane(rulesTextPane);
@@ -111,6 +112,7 @@ public class Menu extends JPanel {
 		scrollPane.setOpaque(false); 		// Transparent
 		scrollPane.getViewport().setOpaque(false); // Area that shows textPane transparent 
 		scrollPane.setBorder(null);			// No borders
+		scrollPane.getVerticalScrollBar().setUnitIncrement(5); // set scroll speed (unit increment)
 
 		// Layout for rulesPanel
 		rulesPanel.setLayout(new BorderLayout());
