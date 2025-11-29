@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Dimension;
 
 // class representing a square on the Chessboard, which extends Cliquable which extends JButton
 public class Square extends Cliquable {

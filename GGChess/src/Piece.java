@@ -1,4 +1,3 @@
-import java.awt.Image;
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -26,8 +25,5 @@ public abstract class Piece {
 	    this.square = square;
 	}
 	
-
-	
-	// ----MODIF
 	public abstract ArrayList<Square> getValidMoves();
 }

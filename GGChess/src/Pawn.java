@@ -9,8 +9,8 @@ public class Pawn extends Piece {
 		ArrayList<Square> ValidMoves = new ArrayList<>();
 		Square square = this.getSquare();
 		Square[][] board = square.getBoard();
-		int x = square.getX();
-		int y = square.getY();
+		int x = square.getX()/100;
+		int y = square.getY()/100;
 	    if (this.color.equals("white")) {
 
 	        //for the case when we can move for 2 or 3 squares
