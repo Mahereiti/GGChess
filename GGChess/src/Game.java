@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,6 +12,8 @@ public class Game extends JPanel {
     public Player whitePlayer;
     public Player blackPlayer;
     public Player currentPlayer;
+    protected ArrayList<Piece> whiteKilled;
+	protected ArrayList<Piece> blackKilled;
 
     public Game(GGChess window) {
 
@@ -26,7 +29,25 @@ public class Game extends JPanel {
         this.add(chessboard);
 
         this.setOpaque(false);
+        
+        this.whiteKilled = new ArrayList<>();
+		this.blackKilled = new ArrayList<>();
     }
+    
+	// Move the piece from the initial to the final square
+	public void move(Square initSquare, Square finalSquare) {
+		finalSquare.setPiece(initSquare.getPiece()); 	//Put the piece in the final Square
+		initSquare.setPiece(null); 		//Remove the piece from the init Square
+	}
+
+	public void kill(Square initSquare, Square finalSquare) {
+		if(finalSquare.getPiece().getColor().equals("white")) {
+			whiteKilled.add(finalSquare.getPiece());
+		}
+		else {blackKilled.add(finalSquare.getPiece());}
+		finalSquare.setPiece(initSquare.getPiece()); 	//Put the piece in the final Square
+		initSquare.setPiece(null); 		//Remove the piece from the init Square
+	}
 
     public void handleSquareclicked(Square s) {
     	//Handles the first click
@@ -47,27 +68,33 @@ public class Game extends JPanel {
         }
     	//handles the second click
         if (selectedSquare1 != null) {
-        	//if the player selcts two times the same square, it allows him to cancel the selection of the piece
+        	//if the player selects two times the same square, it allows him to cancel the selection of the piece
         	if (s == selectedSquare1) {
-                System.out.println("Sélection canceled");
+                System.out.println("Selection canceled");
                 selectedSquare1 = null;
                 return;
             }
         	//if the move is not valid
-        	if (!selectedSquare1.getPiece.getValidMoves().contains(s)) {
+        	if (!selectedSquare1.getPiece().getValidMoves().contains(s)) {
                 System.out.println("Error, this move is not valid");
                 selectedSquare1 = null;
                 return;
             }
         	//If everything is ok
-            selectedSquare1.getPiece().move(selectedSquare1, s); //the move is done
+        	if(s.isOccupied()) {
+        		kill(selectedSquare1,s); //the piece is killed
+        		switchPlayer();       //the player is switched
+                return;
+        	}
+        	else {
+            move(selectedSquare1, s); //the move is done
             switchPlayer();       //the player is switched
-            selectedSquare1 = null;
             return;
+        	}
         }
         //for unexpected problem
         selectedSquare1 = null;
-        System.out.println("Error");
+        System.out.println("Unexpected Error");
     }
 
 	public void switchPlayer() {

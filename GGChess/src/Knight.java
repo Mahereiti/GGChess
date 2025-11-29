@@ -11,30 +11,47 @@ public class Knight extends Piece {
 		Square[][] board = square.getBoard();
 		int x = square.getX();
 		int y = square.getY();
-		if(x<5 && y>0) {
-			ValidMoves.add(board[x+3][y-1]);
-		}
-		if(x<5 && y>7) {
-			ValidMoves.add(board[x+3][y+1]);
-		}
-		if(x>2 && y>0) {
-			ValidMoves.add(board[x-3][y-1]);
-		}
-		if(x>2 && y>7) {
-			ValidMoves.add(board[x-3][y+1]);
-		}
-		if(x>0 && y<5) {
-			ValidMoves.add(board[x-1][y+3]);
-		}
-		if(x>7 && y<5) {
-			ValidMoves.add(board[x+1][y+3]);
-		}
-		if(x>0 && y>2) {
-			ValidMoves.add(board[x-1][y-3]);
-		}
-		if(x>7 && y>2) {
-			ValidMoves.add(board[x+1][y-3]);
-		}
-		
-		return ValidMoves;}
+	    if ((x+2)<8 && (y+1)<8) {
+	        if (!board[x+2][y+1].isOccupied() || !board[x+2][y+1].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[x+2][y+1]);
+	        }
+	    }
+	    if ((x+2)<8 && (y-1)>=0) {
+	        if (!board[x+2][y-1].isOccupied() || !board[x+2][y-1].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[x+2][y-1]);
+	        }
+	    }
+	    if ((x-2)>=0 && (y+1)<8) {
+	        if (!board[x-2][y+1].isOccupied() || !board[x-2][y+1].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[x-2][y+1]);
+	        }
+	    }
+	    if ((x-2)>=0 && (y-1)>= 0) {
+	        if (!board[x-2][y-1].isOccupied() || !board[x-2][y-1].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[x-2][y-1]);
+	        }
+	    }
+	    if ((x+1)<8 && (y+2)< 8) {
+	        if (!board[x+1][y+2].isOccupied() || !board[x+1][y+2].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[x+1][y+2]);
+	        }
+	    }
+	    if ((x+1)<8 && (y-2)>=0) {
+	        if (!board[x+1][y-2].isOccupied() || !board[x+1][y-2].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[x+1][y-2]);
+	        }
+	    }
+	    if ((x-1)>=0 && (y+2)<8) {
+	        if (!board[x-1][y+2].isOccupied() || !board[x-1][y+2].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[x-1][y+2]);
+	        }
+	    }
+	    if ((x-1)>=0 && (y-2)>=0) {
+	        if (!board[x-1][y-2].isOccupied() || !board[x-1][y-2].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[x-1][y-2]);
+	        }
+	    }
+
+	    return ValidMoves;
+	}
 }
