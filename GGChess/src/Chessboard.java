@@ -26,7 +26,7 @@ public class Chessboard extends JPanel {
     	}
     	
     	// To scale pieces
-    	int targetH = (game.d.height-100)/8;
+    	int targetH = (game.d.height-200)/8;
     	
     	// Create and set pieces on board
     	board[0][0].setPiece(new Rook("black", targetH));
@@ -64,7 +64,7 @@ public class Chessboard extends JPanel {
     }
     
     public void printBoard() {
-    	this.setPreferredSize(new Dimension(game.d.height-100, game.d.height-100)); // Size of panel 800*800
+    	this.setPreferredSize(new Dimension(game.d.height-200, game.d.height-200)); // Size of panel 800*800
         this.setLayout(new GridLayout(8, 8)); 	// To organize squares in a grid
     	this.setOpaque(false); 			// Make the panel transparent
     	
