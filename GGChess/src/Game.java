@@ -14,7 +14,6 @@ public class Game extends JPanel {
     public Game(GGChess window) {
         this.whiteKilled = new ArrayList<Piece>();
 		this.blackKilled = new ArrayList<Piece>();
-		
 		this.d = window.d;
 		
         Clickable menuBtn  = new Clickable("/galaxy/menu_b.png", 100, 100);
