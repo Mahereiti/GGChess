@@ -49,7 +49,7 @@ public class Game extends JPanel {
 		initSquare.setPiece(null); 		//Remove the piece from the init Square
 	}
 
-    public void handleSquareclicked(Square s) {
+    public void handleSquareClicked(Square s) {
     	//Handles the first click
     	if (selectedSquare1 == null) {  
     		//if the player has not selected a piece to move
