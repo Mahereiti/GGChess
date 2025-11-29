@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class King extends Piece {
 	
-	public King(String color) {
-		super(color, "/"+color+"_pieces/king.png");
+	public King(String color, int targetH) {
+		super(color, "/"+color+"_pieces/king.png", targetH);
 	}
 	
 	@Override

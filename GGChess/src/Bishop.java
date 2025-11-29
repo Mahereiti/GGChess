@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Bishop extends Piece {
 
-	public Bishop(String color) {
-		super(color, "/"+color+"_pieces/bishop.png");
+	public Bishop(String color, int targetH) {
+		super(color, "/"+color+"_pieces/bishop.png", targetH);
 	}
 	
 	public ArrayList<Square> getValidMoves() {

@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Knight extends Piece {
-	public Knight(String color) {
-		super(color, "/"+color+"_pieces/knight.png");
+	public Knight(String color, int targetH) {
+		super(color, "/"+color+"_pieces/knight.png", targetH);
 	}
 	
 	public ArrayList<Square> getValidMoves() {

@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Queen extends Piece {
-	public Queen (String color) {
-		super(color, "/"+color+"_pieces/queen.png");
+	public Queen (String color, int targetH) {
+		super(color, "/"+color+"_pieces/queen.png", targetH);
 	}
 	
 	public ArrayList<Square> getValidMoves() {

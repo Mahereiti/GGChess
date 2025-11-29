@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.Image;
 import java.util.ArrayList;
 
 public abstract class Piece {
@@ -6,9 +8,10 @@ public abstract class Piece {
 	protected ImageIcon icon;
 	protected Square square;
 	
-	public Piece(String color, String path){
+	public Piece(String color, String path, int targetH){
 		this.color = color;
 		this.icon = new ImageIcon(getClass().getResource(path));
+		this.icon.setImage(this.icon.getImage().getScaledInstance(targetH, targetH, Image.SCALE_SMOOTH));
 	}
 	
 	// getters

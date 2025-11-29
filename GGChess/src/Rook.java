@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Rook extends Piece{
-	public Rook(String color) {
-		super(color, "/"+color+"_pieces/rook.png");
+	public Rook(String color, int targetH) {
+		super(color, "/"+color+"_pieces/rook.png", targetH);
 	}
 	
 	public ArrayList<Square> getValidMoves() {

@@ -1,14 +1,14 @@
 import java.awt.Color;
 
-// class representing a square on the Chessboard, which extends Cliquable which extends JButton
-public class Square extends Cliquable {
+// class representing a square on the Chessboard, which extends Clickable which extends JButton
+public class Square extends Clickable {
     private int row, col;			// Position on panel Chessboard (0->800)
     private char color; 		// b (black) or w (white)
     private Piece piece;		// Piece on square
     private Square[][] board;
     
-    public Square(int row, int col, char color, Square[][] board,Game game) {
-    	super(row, col, 100, 100);
+    public Square(int row, int col, char color, Square[][] board, Game game) {
+    	super(row, col, (game.d.height-100)/8, (game.d.height-100)/8);
         this.row = row;
         this.col = col;
         this.color = color;

@@ -1,9 +1,10 @@
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -12,8 +13,11 @@ public class GGChess extends JFrame {
 	Image bg; 		// background image
 	CardLayout cardLayout;
 	JPanel mainPanel;
+	Dimension d;
 	
 	GGChess() {
+		d = Toolkit.getDefaultToolkit().getScreenSize();
+		
 		this.setTitle("GGChess");
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		//this.setUndecorated(true); 	// No borders
