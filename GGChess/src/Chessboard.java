@@ -16,12 +16,12 @@ public class Chessboard extends JPanel {
     public void initBoard() {
     	// Create squares line by line
     	// Go through rows then lines because of add() which add rows by rows
-    	for (int x=0; x<8; x++) {
-    		for (int y=0; y<8; y++) {
+    	for (int row=0; row<8; row++) {
+    		for (int col=0; col<8; col++) {
     			// create white or black square
-    			if ((x+y)%2 == 0) board[x][y] = new Square(y*100, x*100, 'w', this.board,this.game);
-    			else board[x][y] = new Square(y*100, x*100, 'b', this.board, this.game);
-    			this.add(board[x][y]); 		// add square on the panel Chessboard
+    			if ((row+col)%2 == 0) board[row][col] = new Square(row*100, col*100, 'w', this.board,this.game);
+    			else board[row][col] = new Square(row*100, col*100, 'b', this.board, this.game);
+    			this.add(board[row][col]); 		// add square on the panel Chessboard
     		}
     	}
     	
@@ -66,9 +66,9 @@ public class Chessboard extends JPanel {
     	this.setOpaque(false); 			// Make the panel transparent
     	
     	// Print squares (black or transparent for white square)
-    	for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-               	board[x][y].print();
+    	for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+               	board[row][col].print();
             }
         }
     }

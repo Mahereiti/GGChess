@@ -10,17 +10,17 @@ public class Bishop extends Piece {
 		ArrayList<Square> ValidMoves = new ArrayList<>();
 		Square square = this.getSquare();
 		Square[][] board = square.getBoard();
-		int x = square.getX();
-		int y = square.getY();
+		int row = square.getRow()/100;
+		int col = square.getCol()/100;
 		//top right
 		int i;
 		i=1;
-		while((y+i)<8 && (x+i)<8) {
-			if(!board[x+i][y+i].isOccupied()) {
-				ValidMoves.add(board[x+i][y+i]);
+		while((col+i)<8 && (row+i)<8) {
+			if(!board[row+i][col+i].isOccupied()) {
+				ValidMoves.add(board[row+i][col+i]);
 			} else {
-		        if (!board[x+i][y+i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
-		            ValidMoves.add(board[x+i][y+i]);
+		        if (!board[row+i][col+i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
+		            ValidMoves.add(board[row+i][col+i]);
 		        }
 		        break;
 			}
@@ -28,12 +28,12 @@ public class Bishop extends Piece {
 		}
 		//top left
 		i=1;
-		while((y-i)>=0 && (x+i)<8) {
-			if(!board[x+i][y-i].isOccupied()) {
-				ValidMoves.add(board[x+i][y-i]);
+		while((col-i)>=0 && (row+i)<8) {
+			if(!board[row+i][col-i].isOccupied()) {
+				ValidMoves.add(board[row+i][col-i]);
 			} else {
-		        if (!board[x+i][y-i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
-		            ValidMoves.add(board[x+i][y-i]);
+		        if (!board[row+i][col-i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
+		            ValidMoves.add(board[row+i][col-i]);
 		        }
 		        break;
 			}
@@ -41,12 +41,12 @@ public class Bishop extends Piece {
 		}
 		//down left
 		i=1;
-		while((y-i)>=0 && (x-i)>=0) {
-			if(!board[x-i][y-i].isOccupied()) {
-				ValidMoves.add(board[x-i][y-i]);
+		while((col-i)>=0 && (row-i)>=0) {
+			if(!board[row-i][col-i].isOccupied()) {
+				ValidMoves.add(board[row-i][col-i]);
 			} else {
-		        if (!board[x-i][y-i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
-		            ValidMoves.add(board[x-i][y-i]);
+		        if (!board[row-i][col-i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
+		            ValidMoves.add(board[row-i][col-i]);
 		        }
 		        break;
 			}
@@ -54,19 +54,17 @@ public class Bishop extends Piece {
 		}
 		//down right
 		i=1;
-		while((y+i)>=0 && (x-i)>=0) {
-			if(!board[x-i][y+i].isOccupied()) {
-				ValidMoves.add(board[x-i][y+i]);
+		while((col+i)>=0 && (row-i)>=0) {
+			if(!board[row-i][col+i].isOccupied()) {
+				ValidMoves.add(board[row-i][col+i]);
 			} else {
-		        if (!board[x-i][y+i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
-		            ValidMoves.add(board[x-i][y+i]);
+		        if (!board[row-i][col+i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
+		            ValidMoves.add(board[row-i][col+i]);
 		        }
 		        break;
 			}
 			i++;
 		}
-
+		
 		return ValidMoves;}
 }
-
-

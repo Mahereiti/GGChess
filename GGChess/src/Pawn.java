@@ -6,63 +6,63 @@ public class Pawn extends Piece {
 	}
 	
 	public ArrayList<Square> getValidMoves() {
-		ArrayList<Square> ValidMoves = new ArrayList<>();
+		ArrayList<Square> validMoves = new ArrayList<>();
 		Square square = this.getSquare();
 		Square[][] board = square.getBoard();
-		int x = square.getX()/100;
-		int y = square.getY()/100;
-	    if (this.color.equals("white")) {
+		int row = square.getRow()/100;
+		int col = square.getCol()/100;
 
-	        //for the case when we can move for 2 or 3 squares
-	    	if (x == 1) {
-	            if (!board[x+1][y].isOccupied()) {
-	                ValidMoves.add(board[x+1][y]);
+	    if (this.getColor().equals("black")) {
+	        //for the case when we can move for 1 or 2 squares
+	    	if (row == 1) {
+	            if (!board[row+1][col].isOccupied()) {
+	                validMoves.add(board[row+1][col]);
 	                //we can go to x+2 only if X+1 is not occupied
-	                if (!board[x+2][y].isOccupied()) { 
-	                    ValidMoves.add(board[x+2][y]);
+	                if (!board[row+2][col].isOccupied()) { 
+	                    validMoves.add(board[row+2][col]);
 	                }
 	            }
 	        } 
-	        else if (x < 7) { //if the pawn can move juste from one square
-	            if (!board[x+1][y].isOccupied()) {
-	                ValidMoves.add(board[x+1][y]);
+	        else if (row < 7) { //if the pawn can move juste from one square
+	            if (!board[row+1][col].isOccupied()) {
+	                validMoves.add(board[row+1][col]);
 	            }
 
 	            //case of kills
-	            if (y<7 && board[x+1][y+1].isOccupied() && !board[x+1][y+1].getPiece().getColor().equals(this.color)) {
-	                ValidMoves.add(board[x+1][y+1]);
+	            if (col<7 && board[row+1][col+1].isOccupied() && !board[row+1][col+1].getPiece().getColor().equals(this.getColor())) {
+	                validMoves.add(board[row+1][col+1]);
 	            }
-	            if (y>0 && board[x+1][y-1].isOccupied() && !board[x+1][y-1].getPiece().getColor().equals(this.color)) {
-	                ValidMoves.add(board[x+1][y-1]);
+	            if (col>0 && board[row+1][col-1].isOccupied() && !board[row+1][col-1].getPiece().getColor().equals(this.getColor())) {
+	                validMoves.add(board[row+1][col-1]);
 	            }
 	        }
 	    }
 
 	    //for black pawns
-	    if (this.color.equals("black")) {
-	        if (x == 6) {
-	            if (!board[x-1][y].isOccupied()) {
-	                ValidMoves.add(board[x-1][y]);
+	    else {
+	        if (row == 6) {
+	            if (!board[row-1][col].isOccupied()) {
+	                validMoves.add(board[row-1][col]);
 
-	                if (!board[x-2][y].isOccupied()) {
-	                    ValidMoves.add(board[x-2][y]);
+	                if (!board[row-2][col].isOccupied()) {
+	                    validMoves.add(board[row-2][col]);
 	                }
 	            }
 	        } 
-	        else if (x>0) {
-	            if (!board[x-1][y].isOccupied()) {
-	                ValidMoves.add(board[x-1][y]);
+	        else if (row>0) {
+	            if (!board[row-1][col].isOccupied()) {
+	                validMoves.add(board[row-1][col]);
 	            }
 
-	            if (y<7 && board[x-1][y+1].isOccupied() && !board[x-1][y+1].getPiece().getColor().equals(this.color)) {
-	                ValidMoves.add(board[x-1][y+1]);
+	            if (col<7 && board[row-1][col+1].isOccupied() && !board[row-1][col+1].getPiece().getColor().equals(this.color)) {
+	                validMoves.add(board[row-1][col+1]);
 	            }
-	            if (y>0 && board[x-1][y-1].isOccupied() && !board[x-1][y-1].getPiece().getColor().equals(this.color)) {
-	                ValidMoves.add(board[x-1][y-1]);
+	            if (col>0 && board[row-1][col-1].isOccupied() && !board[row-1][col-1].getPiece().getColor().equals(this.color)) {
+	                validMoves.add(board[row-1][col-1]);
 	            }
 	        }
 	    }
 
-	    return ValidMoves;
-		}
+	    return validMoves;
+	}
 }

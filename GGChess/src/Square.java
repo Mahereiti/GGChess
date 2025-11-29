@@ -2,15 +2,15 @@ import java.awt.Color;
 
 // class representing a square on the Chessboard, which extends Cliquable which extends JButton
 public class Square extends Cliquable {
-    private int x, y;			// Position on panel Chessboard (0->800)
+    private int row, col;			// Position on panel Chessboard (0->800)
     private char color; 		// b (black) or w (white)
     private Piece piece;		// Piece on square
     private Square[][] board;
     
-    public Square(int x, int y, char color, Square[][] board,Game game) {
-    	super(x, y, 100, 100);
-        this.x = x;
-        this.y = y;
+    public Square(int row, int col, char color, Square[][] board,Game game) {
+    	super(row, col, 100, 100);
+        this.row = row;
+        this.col = col;
         this.color = color;
         this.board = board;
         this.piece = null;	// Square contains nothing
@@ -21,14 +21,10 @@ public class Square extends Cliquable {
     }
     
     // getters
-    public int getX() {return x;}
-
-    public int getY() {return y;}
-    
+    public int getRow() {return row;}
+    public int getCol() {return col;}
     public char getColor() {return color;}
-    
     public Piece getPiece() {return piece;}
-    
     public Square[][] getBoard() {return board;}
     
     // setter (others attributs don't change)
@@ -51,7 +47,7 @@ public class Square extends Cliquable {
 	// Print square
 	public void print() {
 		// If black square
-		if ((getX()/100+getY()/100)%2 != 0) {
+		if ((getCol()/100+getRow()/100)%2 != 0) {
 			this.setBackground(Color.BLACK);
 			this.setOpaque(true);
 		// If white square, just make it transparent

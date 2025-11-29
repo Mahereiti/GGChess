@@ -11,46 +11,47 @@ public class King extends Piece {
 		ArrayList<Square> ValidMoves = new ArrayList<>();
 		Square square = this.getSquare();
 		Square[][] board = square.getBoard();
-		int x = square.getX();
-		int y = square.getY();
-		if(x>0) {
-			if(!board[x-1][y].isOccupied() || !board[x-1][y].getPiece().getColor().equals(this.color)) {
-				ValidMoves.add(board[x-1][y]);
+		int row = square.getRow()/100;
+		int col = square.getCol()/100;
+		
+		if(row>0) {
+			if(!board[row-1][col].isOccupied() || !board[row-1][col].getPiece().getColor().equals(this.color)) {
+				ValidMoves.add(board[row-1][col]);
 			}
 		}
-		if(y>0) {
-			if(!board[x][y-1].isOccupied() || !board[x][y-1].getPiece().getColor().equals(this.color)) {
-				ValidMoves.add(board[x][y-1]);
+		if(col>0) {
+			if(!board[row][col-1].isOccupied() || !board[row][col-1].getPiece().getColor().equals(this.color)) {
+				ValidMoves.add(board[row][col-1]);
 			}
 		}
-		if(x<7) {
-			if(!board[x+1][y].isOccupied() || !board[x+1][y].getPiece().getColor().equals(this.color)) {
-				ValidMoves.add(board[x+1][y]);
+		if(row<7) {
+			if(!board[row+1][col].isOccupied() || !board[row+1][col].getPiece().getColor().equals(this.color)) {
+				ValidMoves.add(board[row+1][col]);
 			}
 		}
-		if(y<7) {
-			if(!board[x][y+1].isOccupied() || !board[x][y+1].getPiece().getColor().equals(this.color)) {
-				ValidMoves.add(board[x][y+1]);
+		if(col<7) {
+			if(!board[row][col+1].isOccupied() || !board[row][col+1].getPiece().getColor().equals(this.color)) {
+				ValidMoves.add(board[row][col+1]);
 			}
 		}
-		if(x>0 && y>0) {
-			if(!board[x-1][y-1].isOccupied() || !board[x-1][y-1].getPiece().getColor().equals(this.color)) {
-				ValidMoves.add(board[x-1][y-1]);
+		if(row>0 && col>0) {
+			if(!board[row-1][col-1].isOccupied() || !board[row-1][col-1].getPiece().getColor().equals(this.color)) {
+				ValidMoves.add(board[row-1][col-1]);
 			}
 		}
-		if(x>0 && y<7) {
-			if(!board[x-1][y+1].isOccupied() || !board[x-1][y+1].getPiece().getColor().equals(this.color)) {
-				ValidMoves.add(board[x-1][y+1]);
+		if(row>0 && col<7) {
+			if(!board[row-1][col+1].isOccupied() || !board[row-1][col+1].getPiece().getColor().equals(this.color)) {
+				ValidMoves.add(board[row-1][col+1]);
 			}
 		}
-		if(x<7 && y>0) {
-			if(!board[x+1][y-1].isOccupied() || !board[x+1][y-1].getPiece().getColor().equals(this.color)) {
-				ValidMoves.add(board[x+1][y-1]);
+		if(row<7 && col>0) {
+			if(!board[row+1][col-1].isOccupied() || !board[row+1][col-1].getPiece().getColor().equals(this.color)) {
+				ValidMoves.add(board[row+1][col-1]);
 			}	
 		}
-		if(x<7 && y<7) {
-			if(!board[x+1][y+1].isOccupied() || !board[x+1][y+1].getPiece().getColor().equals(this.color)) {
-				ValidMoves.add(board[x+1][y+1]);
+		if(row<7 && col<7) {
+			if(!board[row+1][col+1].isOccupied() || !board[row+1][col+1].getPiece().getColor().equals(this.color)) {
+				ValidMoves.add(board[row+1][col+1]);
 			}
 		}
 		return ValidMoves;}

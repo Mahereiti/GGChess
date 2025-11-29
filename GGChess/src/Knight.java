@@ -9,46 +9,47 @@ public class Knight extends Piece {
 		ArrayList<Square> ValidMoves = new ArrayList<>();
 		Square square = this.getSquare();
 		Square[][] board = square.getBoard();
-		int x = square.getX();
-		int y = square.getY();
-	    if ((x+2)<8 && (y+1)<8) {
-	        if (!board[x+2][y+1].isOccupied() || !board[x+2][y+1].getPiece().getColor().equals(this.color)) {
-	            ValidMoves.add(board[x+2][y+1]);
+		int row = square.getRow()/100;
+		int col = square.getCol()/100;
+		
+	    if ((row+2)<8 && (col+1)<8) {
+	        if (!board[row+2][col+1].isOccupied() || !board[row+2][col+1].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[row+2][col+1]);
 	        }
 	    }
-	    if ((x+2)<8 && (y-1)>=0) {
-	        if (!board[x+2][y-1].isOccupied() || !board[x+2][y-1].getPiece().getColor().equals(this.color)) {
-	            ValidMoves.add(board[x+2][y-1]);
+	    if ((row+2)<8 && (col-1)>=0) {
+	        if (!board[row+2][col-1].isOccupied() || !board[row+2][col-1].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[row+2][col-1]);
 	        }
 	    }
-	    if ((x-2)>=0 && (y+1)<8) {
-	        if (!board[x-2][y+1].isOccupied() || !board[x-2][y+1].getPiece().getColor().equals(this.color)) {
-	            ValidMoves.add(board[x-2][y+1]);
+	    if ((row-2)>=0 && (col+1)<8) {
+	        if (!board[row-2][col+1].isOccupied() || !board[row-2][col+1].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[row-2][col+1]);
 	        }
 	    }
-	    if ((x-2)>=0 && (y-1)>= 0) {
-	        if (!board[x-2][y-1].isOccupied() || !board[x-2][y-1].getPiece().getColor().equals(this.color)) {
-	            ValidMoves.add(board[x-2][y-1]);
+	    if ((row-2)>=0 && (col-1)>= 0) {
+	        if (!board[row-2][col-1].isOccupied() || !board[row-2][col-1].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[row-2][col-1]);
 	        }
 	    }
-	    if ((x+1)<8 && (y+2)< 8) {
-	        if (!board[x+1][y+2].isOccupied() || !board[x+1][y+2].getPiece().getColor().equals(this.color)) {
-	            ValidMoves.add(board[x+1][y+2]);
+	    if ((row+1)<8 && (col+2)< 8) {
+	        if (!board[row+1][col+2].isOccupied() || !board[row+1][col+2].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[row+1][col+2]);
 	        }
 	    }
-	    if ((x+1)<8 && (y-2)>=0) {
-	        if (!board[x+1][y-2].isOccupied() || !board[x+1][y-2].getPiece().getColor().equals(this.color)) {
-	            ValidMoves.add(board[x+1][y-2]);
+	    if ((row+1)<8 && (col-2)>=0) {
+	        if (!board[row+1][col-2].isOccupied() || !board[row+1][col-2].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[row+1][col-2]);
 	        }
 	    }
-	    if ((x-1)>=0 && (y+2)<8) {
-	        if (!board[x-1][y+2].isOccupied() || !board[x-1][y+2].getPiece().getColor().equals(this.color)) {
-	            ValidMoves.add(board[x-1][y+2]);
+	    if ((row-1)>=0 && (col+2)<8) {
+	        if (!board[row-1][col+2].isOccupied() || !board[row-1][col+2].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[row-1][col+2]);
 	        }
 	    }
-	    if ((x-1)>=0 && (y-2)>=0) {
-	        if (!board[x-1][y-2].isOccupied() || !board[x-1][y-2].getPiece().getColor().equals(this.color)) {
-	            ValidMoves.add(board[x-1][y-2]);
+	    if ((row-1)>=0 && (col-2)>=0) {
+	        if (!board[row-1][col-2].isOccupied() || !board[row-1][col-2].getPiece().getColor().equals(this.color)) {
+	            ValidMoves.add(board[row-1][col-2]);
 	        }
 	    }
 

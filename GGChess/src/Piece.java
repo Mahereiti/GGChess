@@ -13,9 +13,7 @@ public abstract class Piece {
 	
 	// getters
 	public String getColor() {return this.color;}
-	
 	public ImageIcon getIcon() {return this.icon;}
-	
 	public Square getSquare() {
 	    return square;
 	}
