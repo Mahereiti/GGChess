@@ -14,7 +14,7 @@ public class Queen extends Piece {
 
 	    int i;
 
-	    //up
+	    // right
 	    i=1;
 	    while ((col+i)<8) {
 	        if (!board[row][col+i].isOccupied()) {
@@ -28,7 +28,7 @@ public class Queen extends Piece {
 	        i++;
 	    }
 	    
-	    //down
+	    //left
 	    i=1;
 	    while ((col-i)>=0) {
 	        if (!board[row][col-i].isOccupied()) {
@@ -42,7 +42,7 @@ public class Queen extends Piece {
 	        i++;
 	    }
 
-	    //right
+	    //down
 	    i=1;
 	    while ((row+i)<8) {
 	        if (!board[row+i][col].isOccupied()) {
@@ -56,7 +56,7 @@ public class Queen extends Piece {
 	        i++;
 	    }
 
-	    //left
+	    //up
 	    i=1;
 	    while ((row-i)>=0) {
 	        if (!board[row-i][col].isOccupied()) {
@@ -70,6 +70,7 @@ public class Queen extends Piece {
 	        i++;
 	    }
 	    
+	    //top right
 	    i=1;
 		while((col+i)<8 && (row+i)<8) {
 			if(!board[row+i][col+i].isOccupied()) {
@@ -82,6 +83,7 @@ public class Queen extends Piece {
 			}
 			i++;
 		}
+		
 		//top left
 		i=1;
 		while((col-i)>=0 && (row+i)<8) {
@@ -95,6 +97,7 @@ public class Queen extends Piece {
 			}
 			i++;
 		}
+		
 		//down left
 		i=1;
 		while((col-i)>=0 && (row-i)>=0) {
@@ -108,9 +111,10 @@ public class Queen extends Piece {
 			}
 			i++;
 		}
+		
 		//down right
 		i=1;
-		while((col+i)>=0 && (row-i)>=0) {
+		while((col+i)<8 && (row-i)>=0) {
 			if(!board[row-i][col+i].isOccupied()) {
 				ValidMoves.add(board[row-i][col+i]);
 			} else {
