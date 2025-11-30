@@ -9,13 +9,11 @@ import javax.swing.JPanel;
 
 // Class which represents the chess game, extends JPanel
 public class Game extends JPanel {
-    public Player whitePlayer;
-    public Player blackPlayer;
-    public Player currentPlayer;
     protected ArrayList<Piece> whiteKilled;
 	protected ArrayList<Piece> blackKilled;
 	Dimension d;
 	private boolean isPlaying;
+	Players activePlayers;
 
     public Game(GGChess window) {
         this.whiteKilled = new ArrayList<Piece>();
@@ -51,12 +49,10 @@ public class Game extends JPanel {
         
 
         Chessboard chessboard = new Chessboard(this);
-        JPanel activePlayers = new JPanel();
+        activePlayers = new Players(this);
         JPanel btnsPanel = new JPanel();
         
-        blackPlayer = new Player("black");
-        whitePlayer = new Player("white");
-        currentPlayer = whitePlayer;
+        
         
         btnsPanel.setLayout(new BoxLayout(btnsPanel, BoxLayout.X_AXIS));
         btnsPanel.add(Box.createHorizontalGlue());
@@ -66,11 +62,10 @@ public class Game extends JPanel {
         btnsPanel.add(Box.createHorizontalGlue());
         btnsPanel.setOpaque(false);		// Transparent
         
-        activePlayers.setOpaque(false);
-        
         this.setLayout(new BorderLayout());
-        this.add(activePlayers, BorderLayout.WEST);
         this.add(chessboard, BorderLayout.CENTER);
+        this.add(activePlayers, BorderLayout.WEST);
+
         this.add(btnsPanel, BorderLayout.SOUTH);
 
 
@@ -91,8 +86,8 @@ public class Game extends JPanel {
  	}
 
 	public void switchPlayer() {
-		if (currentPlayer == whitePlayer) currentPlayer = blackPlayer;
-        else currentPlayer = whitePlayer;
+		if (activePlayers.currentPlayer == activePlayers.whitePlayer) activePlayers.currentPlayer = activePlayers.blackPlayer;
+        else activePlayers.currentPlayer = activePlayers.whitePlayer;
     }
 }
 
