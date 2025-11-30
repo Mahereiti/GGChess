@@ -85,6 +85,7 @@ public class Menu extends JPanel {
                 g.fillRoundRect(0, 0, 750, 475, 30, 30);
 			}
 		};
+		rulesPanel.setOpaque(false); 	// Transparent
 		
 		JLabel titleLabel = new JLabel("<html><h1 style='color:white; text-align:center; font-size:30px;'>Règles du jeu</h1></html>");
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);

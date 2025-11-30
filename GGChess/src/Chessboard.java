@@ -64,7 +64,7 @@ public class Chessboard extends JPanel {
     }
     
     public void printBoard() {
-    	this.setPreferredSize(new Dimension(game.d.height-200, game.d.height-200)); // Size of panel 800*800
+    	this.setPreferredSize(new Dimension(game.d.height-200, game.d.height-200)); // Size of panel
         this.setLayout(new GridLayout(8, 8)); 	// To organize squares in a grid
     	this.setOpaque(false); 			// Make the panel transparent
     	
