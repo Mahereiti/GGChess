@@ -14,7 +14,7 @@ public class Mouse {
 	public void clickOnSquare(Square s) {
 		// if the selectionned piece belongs to the active player
 		// if the square contains a piece and we didn't select a piece yet
-		if (s.isOccupied() && s.getPiece().getColor().equals(game.currentPlayer.getColor()) && selectedSquare1 == null) {
+		if (s.isOccupied() && s.getPiece().getColor().equals(game.activePlayers.currentPlayer.getColor()) && selectedSquare1 == null) {
 			selectedSquare1 = s;
 			return ;
 		}
