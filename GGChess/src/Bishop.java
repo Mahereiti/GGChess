@@ -54,7 +54,7 @@ public class Bishop extends Piece {
 		}
 		//down right
 		i=1;
-		while((col+i)>=0 && (row-i)>=0) {
+		while((col+i)<8 && (row-i)>=0) {
 			if(!board[row-i][col+i].isOccupied()) {
 				ValidMoves.add(board[row-i][col+i]);
 			} else {
