@@ -4,6 +4,14 @@ import javax.swing.*;
 public class Clickable extends JButton { 
 	int x, y, w, h;
 	
+	// Constructor
+	public Clickable() {
+		setContentAreaFilled(false); 	// Remove default bg
+		setBorderPainted(false); 		// Remove border
+		setFocusPainted(false); 		// Disable focus when click
+		setOpaque(false); 				// Make it transparent
+	}
+	
 	// Constructor with position only
 	public Clickable(int x, int y) {
 		setContentAreaFilled(false); 	// Remove default bg
