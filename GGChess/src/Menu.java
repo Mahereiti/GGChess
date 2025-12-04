@@ -26,18 +26,28 @@ public class Menu extends JPanel {
 		Clickable rulesBtn = new Clickable("/menu/rules.png", 100, 300);
 		Clickable scoresBtn = new Clickable("/menu/scores.png", 100, 500);
 		
+		Clickable quitBtn = new Clickable("/menu/quit.png", 0, 0);
+		Clickable themeBtn = new Clickable("/menu/theme_dark.png", 0, 0);
+		
 		// Scale clickable to fit screen size
 		playBtn.scaleH(d.height/7);
 		rulesBtn.scaleH(d.height/7);
 		scoresBtn.scaleH(d.height/7);
 		logo.scaleW(playBtn.w);
-
+		quitBtn.scaleH(d.height/12);
+		themeBtn.scaleH(d.height/12);
+		
 		// Add actions to btn
 		playBtn.addActionListener(e-> window.showGame());
 		rulesBtn.addActionListener(e-> this.showRules());
+		quitBtn.addActionListener(e-> window.dispose());
 		
-		this.setOpaque(false); 	// Transparent background
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); 	// Vertical Layout
+		
+		// SouthPanel to put quit/theme btn
+		JPanel southPanel = new JPanel(new BorderLayout());
+		southPanel.add(quitBtn, BorderLayout.LINE_START);
+		southPanel.add(themeBtn, BorderLayout.LINE_END);
+		southPanel.setOpaque(false);
 		
 		// Center align all clickable
 		logo.setAlignmentX(CENTER_ALIGNMENT);
@@ -45,13 +55,16 @@ public class Menu extends JPanel {
 		rulesBtn.setAlignmentX(CENTER_ALIGNMENT);
 		scoresBtn.setAlignmentX(CENTER_ALIGNMENT);
 		
-		// add components with flexible vertical space
-		this.add(Box.createVerticalGlue());
+		this.setOpaque(false); 	// Transparent
+		this.setPreferredSize(d);
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); 	// Vertical Layout
+		
+		// add components
 		this.add(logo);
 		this.add(playBtn);
 		this.add(rulesBtn);
 		this.add(scoresBtn);
-		this.add(Box.createVerticalGlue());
+		this.add(southPanel);
 	}
 
 	public void showRules() {
