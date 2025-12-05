@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -9,15 +10,12 @@ import javax.swing.JPanel;
 
 // Class which represents the chess game, extends JPanel
 public class Game extends JPanel {
-    protected ArrayList<Piece> whiteKilled;
-	protected ArrayList<Piece> blackKilled;
 	Dimension d;
 	private boolean isPlaying;
-	Players activePlayers;
+	Players playersPanel;
+	KillPiecesPanel killPiecesPanel;
 
     public Game(GGChess window) {
-        this.whiteKilled = new ArrayList<Piece>();
-		this.blackKilled = new ArrayList<Piece>();
 		this.d = window.d;
 		
 		// Create btns
@@ -47,13 +45,18 @@ public class Game extends JPanel {
         	isPlaying = !isPlaying;
         });
         
-
+        // panels
         Chessboard chessboard = new Chessboard(this);
-        activePlayers = new Players(this);
+        playersPanel = new Players(this);
+        killPiecesPanel = new KillPiecesPanel(this);
         JPanel btnsPanel = new JPanel();
         
+        // wrapper to have a fixed chessboard
+        JPanel chessboardWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        chessboardWrapper.add(chessboard);
+        chessboardWrapper.setOpaque(false);
         
-        
+        // Layout of btnsPanel with spaces
         btnsPanel.setLayout(new BoxLayout(btnsPanel, BoxLayout.X_AXIS));
         btnsPanel.add(Box.createHorizontalGlue());
         btnsPanel.add(menuBtn);
@@ -62,33 +65,28 @@ public class Game extends JPanel {
         btnsPanel.add(Box.createHorizontalGlue());
         btnsPanel.setOpaque(false);		// Transparent
         
+        // Layout of game (add all panels)
         this.setLayout(new BorderLayout());
-        this.add(chessboard, BorderLayout.CENTER);
-        this.add(activePlayers, BorderLayout.WEST);
+        this.add(chessboardWrapper, BorderLayout.CENTER);
+        this.add(playersPanel, BorderLayout.WEST);
+        this.add(killPiecesPanel, BorderLayout.EAST);
         this.add(btnsPanel, BorderLayout.SOUTH);
 
-
-        this.setOpaque(false);
+        this.setPreferredSize(d);
+        this.setOpaque(false);	// Transparent
     }
     
     // Move the piece from the initial to the final square
  	public void move(Square initSquare, Square finalSquare) {
  		// We "kill" the piece in the final Square if there is one
- 		if (finalSquare.isOccupied()) {
- 			if(finalSquare.getPiece().getColor().equals("white")) {
- 	 			whiteKilled.add(finalSquare.getPiece());
- 	 		} else {
- 	 			blackKilled.add(finalSquare.getPiece());   
- 	 		}
- 		}
+ 		if (finalSquare.isOccupied()) killPiecesPanel.killPiece(finalSquare.getPiece());
  		
  		finalSquare.setPiece(initSquare.getPiece()); 	// Put the piece in the final Square
  		initSquare.setPiece(null); 		// Remove the piece from the init Square
  	}
 
 	public void switchPlayer() {
-		if (activePlayers.currentPlayer == activePlayers.whitePlayer) activePlayers.currentPlayer = activePlayers.blackPlayer;
-        else activePlayers.currentPlayer = activePlayers.whitePlayer;
+		playersPanel.switchPlayer();
     }
 }
 

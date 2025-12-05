@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,9 +8,8 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
+// Player panels
 public class Players extends JPanel {
 	ImageIcon activePlayer;
 	ImageIcon inactivePlayer;
@@ -20,85 +18,93 @@ public class Players extends JPanel {
     public Player blackPlayer;
     public Player currentPlayer;
     
+    public Clickable imgPlayerB, imgPlayerW;
+    
     public Dimension d;
 	
 	public Players(Game g) {
 		this.d = g.d;
+		
+		// load icons active/inactive status
         this.activePlayer = new ImageIcon(getClass().getResource("/galaxy/player_active.png"));
-        this.inactivePlayer = new ImageIcon(getClass().getResource("/galaxy/player_active.png"));
+        this.inactivePlayer = new ImageIcon(getClass().getResource("/galaxy/player_inactive.png"));
         
-		this.setPreferredSize(new Dimension(200, 3*d.height/4));
+        // clickable img for players
+		imgPlayerB = new Clickable("/galaxy/player_active.png", 0, 0);
+		imgPlayerW = new Clickable("/galaxy/player_inactive.png", 0, 0);
 
+        // init players
         blackPlayer = new Player("black");
         whitePlayer = new Player("white");
-        currentPlayer = whitePlayer;
+        currentPlayer = whitePlayer; 		// white first
         
-		JPanel player1Panel = new JPanel() {
+        // Panel for white killed pieces
+		JPanel blackKillsPanel = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.setColor(new Color(59, 41, 153));
-                g.fillRoundRect(0, 0, 200, d.height/4, 30, 30);
+                g.fillRoundRect(this.getWidth()/2-100, 0, 200, d.height/4, 30, 30);
 			}
 		};
-		player1Panel.setPreferredSize(new Dimension(200, d.height/4));
 		
-
-		Clickable player1 = new Clickable("/galaxy/player_inactive.png", 0, 0);
-		player1.scaleH(d.height/6);
-
-		JLabel label1 = new JLabel("Joueur 1");
-		label1.setBorder(new EmptyBorder(30, 30, 30, 30));
-		label1.setHorizontalAlignment(JLabel.CENTER);
-		label1.setForeground(Color.white);
-		label1.setFont(new Font("Sans-serif", Font.BOLD , 14));
-		
-		player1Panel.setLayout(new BorderLayout());
-		player1Panel.add(player1, BorderLayout.NORTH);
-		player1Panel.add(label1, BorderLayout.SOUTH);
-		player1Panel.setOpaque(false);
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		JPanel player2Panel = new JPanel(new BorderLayout()) {
+		// Panel for black killed pieces
+		JPanel whiteKillsPanel = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.setColor(new Color(3, 1, 24));
-                g.fillRoundRect(0, 0, 200, d.height/4, 30, 30);
+                g.fillRoundRect(this.getWidth()/2-100, 0, 200, d.height/4, 30, 30);
 			}
 		};
 		
-		player2Panel.setPreferredSize(new Dimension(200, d.height/4));
-		player2Panel.setBackground(new Color(200, 0, 200));
+		// init players panels with name and icons
+		this.initPlayerPanel(blackKillsPanel, "Joueur 1", imgPlayerB);
+		this.initPlayerPanel(whiteKillsPanel, "Joueur 2", imgPlayerW);
 		
-		Clickable player2 = new Clickable("/galaxy/player_active.png", 0, 0);
-		player2.scaleH(d.height/6);
-
-		JLabel label2 = new JLabel("Joueur 2");
-		label2.setBorder(new EmptyBorder(30, 30, 30, 30));
-		label2.setHorizontalAlignment(JLabel.CENTER);
-		label2.setForeground(Color.white);
-		label2.setFont(new Font("Sans-serif", Font.BOLD , 14));
-	
-		player2Panel.setLayout(new BorderLayout());
-		player2Panel.add(player2, BorderLayout.NORTH);
-		player2Panel.add(label2, BorderLayout.SOUTH);
-		player2Panel.setOpaque(false);
-
-		
+		// Layout vertical
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.add(player1Panel);
-		this.add(Box.createVerticalStrut(d.height/4));
-		this.add(player2Panel);
+		this.add(blackKillsPanel);
+		this.add(whiteKillsPanel);
 		
+		this.setPreferredSize(new Dimension((d.width-(d.height-200))/2, d.height-200));
 		this.setOpaque(false); 	// Transparent
+	}
+	
+	public void initPlayerPanel(JPanel panel, String name, Clickable imgPlayer) {
+		panel.setPreferredSize(new Dimension(200, d.height/4));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setOpaque(false);
+		
+		// scale player img to fit panel
+		imgPlayer.scaleH(d.height/6);
+		
+		// label for name
+		JLabel namePlayer = new JLabel(name);
+		namePlayer.setForeground(Color.white);
+		namePlayer.setFont(new Font("Sans-serif", Font.BOLD , 14));
+		
+		// center align
+		panel.setAlignmentX(CENTER_ALIGNMENT);
+		imgPlayer.setAlignmentX(CENTER_ALIGNMENT);
+		namePlayer.setAlignmentX(CENTER_ALIGNMENT);
+		
+		panel.add(imgPlayer);
+		panel.add(namePlayer);
+		panel.add(Box.createGlue()); //space
+	}
+	
+	public void switchPlayer() {
+		// switch active/inactive player and image
+		if (currentPlayer == whitePlayer) {
+			currentPlayer = blackPlayer;
+			imgPlayerB.setIcon(activePlayer);
+			imgPlayerW.setIcon(inactivePlayer);
+		}
+        else {
+        	currentPlayer = whitePlayer;
+			imgPlayerB.setIcon(inactivePlayer);
+			imgPlayerW.setIcon(activePlayer);
+        }
 	}
 }
