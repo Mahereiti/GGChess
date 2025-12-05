@@ -65,7 +65,6 @@ public class Game extends JPanel {
         this.setLayout(new BorderLayout());
         this.add(chessboard, BorderLayout.CENTER);
         this.add(activePlayers, BorderLayout.WEST);
-
         this.add(btnsPanel, BorderLayout.SOUTH);
 
 
@@ -78,7 +77,9 @@ public class Game extends JPanel {
  		if (finalSquare.isOccupied()) {
  			if(finalSquare.getPiece().getColor().equals("white")) {
  	 			whiteKilled.add(finalSquare.getPiece());
- 	 		} else blackKilled.add(finalSquare.getPiece());
+ 	 		} else {
+ 	 			blackKilled.add(finalSquare.getPiece());   
+ 	 		}
  		}
  		
  		finalSquare.setPiece(initSquare.getPiece()); 	// Put the piece in the final Square
