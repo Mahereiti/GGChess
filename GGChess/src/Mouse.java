@@ -4,8 +4,8 @@ public class Mouse {
 	
 	// Store the first square selected containing a piece
 	static Square selectedSquare1 = null; // To check 1st click before moving a piece
+	static Square redSquare = null;		// To show if the move is invalid (square becomes red)
 	private Game game;
-	Square redSquare = null;
 	
 	public Mouse(Game game) {
         this.game = game;
@@ -13,13 +13,16 @@ public class Mouse {
 
 	// When click on square
 	public void clickOnSquare(Square s) {
+		// To reset color of red square
 		if (redSquare != null) {
 	        redSquare.resetColor();
 	        redSquare = null;
 	    }
+		
 		// if the selectionned piece belongs to the active player
 		// if the square contains a piece and we didn't select a piece yet
-		if (s.isOccupied() && s.getPiece().getColor().equals(game.playersPanel.currentPlayer.getColor()) && selectedSquare1 == null) {
+		if (s.isOccupied() && s.getPiece().getColor().equals(game.playersPanel.currentPlayer.getColor()) 
+				&& selectedSquare1 == null) {
 			selectedSquare1 = s;
 			return ;
 		}
@@ -31,11 +34,11 @@ public class Mouse {
         		game.switchPlayer();       //the player is switched
             }
         	else {
-        		s.setInRed();
+        		s.setInRed();	// invalid move in red
         		redSquare = s;
         	}
 			
-		} else selectedSquare1 = null; 	// if same initial selected square/piece
+		}
 		selectedSquare1 = null; 		// Reset initial selected square
 	}
 }

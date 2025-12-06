@@ -22,9 +22,13 @@ public class Square extends Clickable {
     
     // getters
     public int getRow() {return row;}
+    
     public int getCol() {return col;}
+    
     public char getColor() {return color;}
+    
     public Piece getPiece() {return piece;}
+    
     public Square[][] getBoard() {return board;}
     
     // setter (others attributs don't change)
@@ -56,18 +60,16 @@ public class Square extends Clickable {
 	
 	public void setInRed() {
 		this.setBackground(Color.RED);
-        this.setOpaque(true);
+		this.setOpaque(true); 	// make it visible
 	}
 	
 	public void resetColor() {
 	    if (color == 'b') {
 	        this.setBackground(Color.BLACK);
-	        this.setOpaque(true);
-	    } else if (color == 'w') {
+	    } else {
 	        this.setOpaque(false);
-	        this.setBackground(null);
 	    }
-	    this.repaint();
+	    repaint();		// reset color
 	}
 }
     
