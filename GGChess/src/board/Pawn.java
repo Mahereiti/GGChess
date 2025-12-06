@@ -29,14 +29,14 @@ public class Pawn extends Piece {
 	                validMoves.add(board[row+1][col]);
 	            }
 
-	            //case of kills
-	            if (col<7 && board[row+1][col+1].isOccupied() && !board[row+1][col+1].getPiece().getColor().equals(this.getColor())) {
-	                validMoves.add(board[row+1][col+1]);
-	            }
-	            if (col>0 && board[row+1][col-1].isOccupied() && !board[row+1][col-1].getPiece().getColor().equals(this.getColor())) {
-	                validMoves.add(board[row+1][col-1]);
-	            }
 	        }
+	    	//case of kills
+	    	if (col<7 && board[row+1][col+1].isOccupied() && !board[row+1][col+1].getPiece().getColor().equals(this.getColor())) {
+	    		validMoves.add(board[row+1][col+1]);
+	    	}
+	    	if (col>0 && board[row+1][col-1].isOccupied() && !board[row+1][col-1].getPiece().getColor().equals(this.getColor())) {
+	    		validMoves.add(board[row+1][col-1]);
+	    	}
 	    }
 
 	    //for black pawns
@@ -54,13 +54,13 @@ public class Pawn extends Piece {
 	            if (!board[row-1][col].isOccupied()) {
 	                validMoves.add(board[row-1][col]);
 	            }
-
-	            if (col<7 && board[row-1][col+1].isOccupied() && !board[row-1][col+1].getPiece().getColor().equals(this.color)) {
-	                validMoves.add(board[row-1][col+1]);
-	            }
-	            if (col>0 && board[row-1][col-1].isOccupied() && !board[row-1][col-1].getPiece().getColor().equals(this.color)) {
-	                validMoves.add(board[row-1][col-1]);
-	            }
+	        }
+	        // case of kills
+	        if (col<7 && board[row-1][col+1].isOccupied() && !board[row-1][col+1].getPiece().getColor().equals(this.color)) {
+	        	validMoves.add(board[row-1][col+1]);
+	        }
+	        if (col>0 && board[row-1][col-1].isOccupied() && !board[row-1][col-1].getPiece().getColor().equals(this.color)) {
+	        	validMoves.add(board[row-1][col-1]);
 	        }
 	    }
 
