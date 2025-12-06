@@ -1,8 +1,7 @@
 import java.awt.BorderLayout;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.util.ArrayList;
+import java.awt.GridBagLayout;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -13,16 +12,32 @@ import java.sql.SQLException;
 
 // Class which represents the chess game, extends JPanel
 public class Game extends JPanel {
+	GGChess windowPrincipal;
 	Dimension d;
 	private boolean isPlaying;
 	Players playersPanel;
 	KillPiecesPanel killPiecesPanel;
+	Chessboard chessboard;
 	Database db = Database.getInstance();
 
     public Game(GGChess window) {
+    	this.windowPrincipal = window;
 		this.d = window.d;
-		
-		// Create btns
+        isPlaying = true;
+        
+        // Layout of game (add all panels)
+        this.setLayout(new BorderLayout());
+        this.initBtnsPanel();
+        this.initChessboardPanel();
+        this.initPlayersPanel();
+        this.initKillPiecesPanel();
+
+        this.setPreferredSize(d);
+        this.setOpaque(false);	// Transparent
+    }
+    
+    public void initBtnsPanel() {
+    	// Create btns
         Clickable menuBtn  = new Clickable("/galaxy/menu_b.png", 0, 0);
         Clickable playPauseBtn = new Clickable("/galaxy/pause.png", 0, 0);
         Clickable replayBtn = new Clickable("/galaxy/reset_b.png", 0, 0);
@@ -30,7 +45,6 @@ public class Game extends JPanel {
         // Create imageIcon to be able to change between play and pause btn
         ImageIcon play = new ImageIcon(getClass().getResource("/galaxy/play_b.png"));
         ImageIcon pause = new ImageIcon(getClass().getResource("/galaxy/pause.png"));
-        isPlaying = true;
         
         // Scale btns to fit screen size
         menuBtn.scaleH(d.height/12);
@@ -38,7 +52,8 @@ public class Game extends JPanel {
         replayBtn.scaleH(d.height/12);
         
         // add actions to btn
-        menuBtn.addActionListener(e -> window.showMenu());
+        menuBtn.addActionListener(e -> windowPrincipal.showMenu());
+        replayBtn.addActionListener(e-> this.resetGame());
         playPauseBtn.addActionListener(e-> {
         	if (isPlaying) {
         		playPauseBtn.setIcon(play);
@@ -49,17 +64,7 @@ public class Game extends JPanel {
         	isPlaying = !isPlaying;
         });
         
-        // panels
-        Chessboard chessboard = new Chessboard(this);
-        playersPanel = new Players(this);
-        killPiecesPanel = new KillPiecesPanel(this);
         JPanel btnsPanel = new JPanel();
-        
-        // wrapper to have a fixed chessboard
-        JPanel chessboardWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        chessboardWrapper.add(chessboard);
-        chessboardWrapper.setOpaque(false);
-        
         // Layout of btnsPanel with spaces
         btnsPanel.setLayout(new BoxLayout(btnsPanel, BoxLayout.X_AXIS));
         btnsPanel.add(Box.createHorizontalGlue());
@@ -69,15 +74,28 @@ public class Game extends JPanel {
         btnsPanel.add(Box.createHorizontalGlue());
         btnsPanel.setOpaque(false);		// Transparent
         
-        // Layout of game (add all panels)
-        this.setLayout(new BorderLayout());
-        this.add(chessboardWrapper, BorderLayout.CENTER);
-        this.add(playersPanel, BorderLayout.WEST);
-        this.add(killPiecesPanel, BorderLayout.EAST);
-        this.add(btnsPanel, BorderLayout.SOUTH);
-
-        this.setPreferredSize(d);
-        this.setOpaque(false);	// Transparent
+        this.add(btnsPanel, BorderLayout.SOUTH); 	// add BtnsPanel to game
+    }
+    
+    public void initChessboardPanel() {
+        chessboard = new Chessboard(this);
+        
+        // wrapper to have a fixed chessboard
+        JPanel chessboardWrapper = new JPanel(new GridBagLayout());
+        chessboardWrapper.setOpaque(false);
+        
+        chessboardWrapper.add(chessboard);
+        this.add(chessboardWrapper, BorderLayout.CENTER);	// add chessboard
+    }
+    
+    public void initPlayersPanel() {
+        playersPanel = new Players(this);
+        this.add(playersPanel, BorderLayout.WEST);		// add playersPanel
+    }
+    
+    public void initKillPiecesPanel() {
+        killPiecesPanel = new KillPiecesPanel(this);
+        this.add(killPiecesPanel, BorderLayout.EAST);	// add killPiecesPanel
     }
     
     // Move the piece from the initial to the final square
@@ -102,9 +120,16 @@ public class Game extends JPanel {
  		finalSquare.setPiece(initSquare.getPiece()); 	// Put the piece in the final Square
  		initSquare.setPiece(null); 		// Remove the piece from the init Square
  	}
+ 	
 
 	public void switchPlayer() {
 		playersPanel.switchPlayer();
     }
+	
+	public void resetGame() {
+		chessboard.resetBoard();
+		killPiecesPanel.reset();
+		playersPanel.reset();
+	}
 }
 
