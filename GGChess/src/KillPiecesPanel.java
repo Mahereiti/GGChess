@@ -18,12 +18,12 @@ public class KillPiecesPanel extends JPanel {
         this.whiteKilled = new ArrayList<Piece>();
 		this.blackKilled = new ArrayList<Piece>();
 		
-		// panels of killed pieces
-		whiteKillPanel = new JPanel();
-		blackKillPanel = new JPanel();
+		// panels of killed pieces without layout
+		whiteKillPanel = new JPanel(null);
+		blackKillPanel = new JPanel(null);
 		
 		whiteKillPanel.setBackground(Color.gray);
-		blackKillPanel.setBackground(Color.black);
+		blackKillPanel.setBackground(Color.black);		
 		
 		// Layout vertical
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -48,13 +48,26 @@ public class KillPiecesPanel extends JPanel {
 		// new clickable image for the newly white killed piece
 		Clickable kill = new Clickable();
 		kill.setIcon(p.getIcon());
+		
+		int xStart = (this.getWidth()-310)/2;			// start point : (width - (7pieces*30+100))/2
+		int xPiece = ((whiteKilled.size()-1)*30)%240;	// each piece +30px, reset every 8 pieces
+		int yPiece = ((whiteKilled.size()-1)/8)*100;	// new row every 8 pieces
+		
+		kill.setBounds(xStart+xPiece, yPiece, 100, 100);
 		whiteKillPanel.add(kill);
+		repaint();		// force panel to redraw
 	}
 	
 	public void printBlackKill(Piece p) {
 		// new clickable image for the newly black killed piece
 		Clickable kill = new Clickable();
 		kill.setIcon(p.getIcon());
+		int xStart = (this.getWidth()-310)/2;			// start point : (width - (7pieces*30+100))/2
+		int xPiece = ((whiteKilled.size()-1)*30)%240;	// each piece +30px, reset every 8 pieces
+		int yPiece = ((whiteKilled.size()-1)/8)*100;	// new row every 8 pieces
+		
+		kill.setBounds(xStart+xPiece, yPiece, 100, 100);
 		blackKillPanel.add(kill);
+		repaint();		// force panel to redraw
 	}
 }
