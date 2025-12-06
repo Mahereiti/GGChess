@@ -7,7 +7,7 @@ public class Queen extends Piece {
 	}
 	
 	public ArrayList<Square> getValidMoves() {
-		ArrayList<Square> ValidMoves = new ArrayList<>();
+		ArrayList<Square> validMoves = new ArrayList<>();
 		Square square = this.getSquare();
 		Square[][] board = square.getBoard();
 		int row = square.getRow()/100;
@@ -19,10 +19,10 @@ public class Queen extends Piece {
 	    i=1;
 	    while ((col+i)<8) {
 	        if (!board[row][col+i].isOccupied()) {
-	            ValidMoves.add(board[row][col+i]);
+	            validMoves.add(board[row][col+i]);
 	        } else {
-	            if (!board[row][col+i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
-	                ValidMoves.add(board[row][col+i]);
+	            if (!board[row][col+i].getPiece().getColor().equals(this.getColor())) { //if we meet an enemy piece 
+	                validMoves.add(board[row][col+i]);
 	            }
 	            break;
 	        }
@@ -33,10 +33,10 @@ public class Queen extends Piece {
 	    i=1;
 	    while ((col-i)>=0) {
 	        if (!board[row][col-i].isOccupied()) {
-	            ValidMoves.add(board[row][col-i]);
+	            validMoves.add(board[row][col-i]);
 	        } else {
-	            if (!board[row][col-i].getPiece().getColor().equals(this.color)) {
-	                ValidMoves.add(board[row][col-i]);
+	            if (!board[row][col-i].getPiece().getColor().equals(this.getColor())) {
+	                validMoves.add(board[row][col-i]);
 	            }
 	            break;
 	        }
@@ -47,10 +47,10 @@ public class Queen extends Piece {
 	    i=1;
 	    while ((row+i)<8) {
 	        if (!board[row+i][col].isOccupied()) {
-	            ValidMoves.add(board[row+i][col]);
+	            validMoves.add(board[row+i][col]);
 	        } else {
-	            if (!board[row+i][col].getPiece().getColor().equals(this.color)) {
-	                ValidMoves.add(board[row+i][col]);
+	            if (!board[row+i][col].getPiece().getColor().equals(this.getColor())) {
+	                validMoves.add(board[row+i][col]);
 	            }
 	            break;
 	        }
@@ -61,10 +61,10 @@ public class Queen extends Piece {
 	    i=1;
 	    while ((row-i)>=0) {
 	        if (!board[row-i][col].isOccupied()) {
-	            ValidMoves.add(board[row-i][col]);
+	            validMoves.add(board[row-i][col]);
 	        } else {
-	            if (!board[row-i][col].getPiece().getColor().equals(this.color)) {
-	                ValidMoves.add(board[row-i][col]);
+	            if (!board[row-i][col].getPiece().getColor().equals(this.getColor())) {
+	                validMoves.add(board[row-i][col]);
 	            }
 	            break; //The code stops after meeting a piece
 	        }
@@ -75,10 +75,10 @@ public class Queen extends Piece {
 	    i=1;
 		while((col+i)<8 && (row+i)<8) {
 			if(!board[row+i][col+i].isOccupied()) {
-				ValidMoves.add(board[row+i][col+i]);
+				validMoves.add(board[row+i][col+i]);
 			} else {
-		        if (!board[row+i][col+i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
-		            ValidMoves.add(board[row+i][col+i]);
+		        if (!board[row+i][col+i].getPiece().getColor().equals(this.getColor())) { //if we meet an enemy piece 
+		            validMoves.add(board[row+i][col+i]);
 		        }
 		        break;
 			}
@@ -89,10 +89,10 @@ public class Queen extends Piece {
 		i=1;
 		while((col-i)>=0 && (row+i)<8) {
 			if(!board[row+i][col-i].isOccupied()) {
-				ValidMoves.add(board[row+i][col-i]);
+				validMoves.add(board[row+i][col-i]);
 			} else {
-		        if (!board[row+i][col-i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
-		            ValidMoves.add(board[row+i][col-i]);
+		        if (!board[row+i][col-i].getPiece().getColor().equals(this.getColor())) { //if we meet an enemy piece 
+		            validMoves.add(board[row+i][col-i]);
 		        }
 		        break;
 			}
@@ -103,10 +103,10 @@ public class Queen extends Piece {
 		i=1;
 		while((col-i)>=0 && (row-i)>=0) {
 			if(!board[row-i][col-i].isOccupied()) {
-				ValidMoves.add(board[row-i][col-i]);
+				validMoves.add(board[row-i][col-i]);
 			} else {
-		        if (!board[row-i][col-i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
-		            ValidMoves.add(board[row-i][col-i]);
+		        if (!board[row-i][col-i].getPiece().getColor().equals(this.getColor())) { //if we meet an enemy piece 
+		            validMoves.add(board[row-i][col-i]);
 		        }
 		        break;
 			}
@@ -117,14 +117,14 @@ public class Queen extends Piece {
 		i=1;
 		while((col+i)<8 && (row-i)>=0) {
 			if(!board[row-i][col+i].isOccupied()) {
-				ValidMoves.add(board[row-i][col+i]);
+				validMoves.add(board[row-i][col+i]);
 			} else {
-		        if (!board[row-i][col+i].getPiece().getColor().equals(this.color)) { //if we meet an enemy piece 
-		            ValidMoves.add(board[row-i][col+i]);
+		        if (!board[row-i][col+i].getPiece().getColor().equals(this.getColor())) { //if we meet an enemy piece 
+		            validMoves.add(board[row-i][col+i]);
 		        }
 		        break;
 			}
 			i++;
 		}
-		return ValidMoves;}
+		return validMoves;}
 }

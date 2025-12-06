@@ -57,10 +57,10 @@ public class Pawn extends Piece {
 	            }
 	        }
 	        // case of kills
-	        if (row>0 && col<7 && board[row-1][col+1].isOccupied() && !board[row-1][col+1].getPiece().getColor().equals(this.color)) {
+	        if (row>0 && col<7 && board[row-1][col+1].isOccupied() && !board[row-1][col+1].getPiece().getColor().equals(this.getColor())) {
 	        	validMoves.add(board[row-1][col+1]);
 	        }
-	        if (row>0 && col>0 && board[row-1][col-1].isOccupied() && !board[row-1][col-1].getPiece().getColor().equals(this.color)) {
+	        if (row>0 && col>0 && board[row-1][col-1].isOccupied() && !board[row-1][col-1].getPiece().getColor().equals(this.getColor())) {
 	        	validMoves.add(board[row-1][col-1]);
 	        }
 	    }

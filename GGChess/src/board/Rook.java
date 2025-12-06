@@ -7,69 +7,69 @@ public class Rook extends Piece{
 	}
 	
 	public ArrayList<Square> getValidMoves() {
-	    ArrayList<Square> ValidMoves = new ArrayList<Square>();
+	    ArrayList<Square> validMoves = new ArrayList<Square>();
 	    Square square = this.getSquare();
 	    Square[][] board = square.getBoard();
 	    int row = square.getRow()/100;
 	    int col = square.getCol()/100;
 	    int i;
 
-	    //up
+	    //right
 	    i=1;
 	    while ((col+i)<8) {
 	        if (!board[row][col+i].isOccupied()) {
-	            ValidMoves.add(board[row][col+i]);
+	            validMoves.add(board[row][col+i]);
 	        } else {
-	            if (!board[row][col+i].getPiece().getColor().equals(this.color)) { //if we meet an enemcol piece 
-	                ValidMoves.add(board[row][col+i]);
+	            if (!board[row][col+i].getPiece().getColor().equals(this.getColor())) { //if we meet an enemcol piece 
+	                validMoves.add(board[row][col+i]);
 	            }
 	            break;
 	        }
 	        i++;
 	    }
 	    
-	    //down
+	    //left
 	    i=1;
 	    while ((col-i)>=0) {
 	        if (!board[row][col-i].isOccupied()) {
-	            ValidMoves.add(board[row][col-i]);
+	            validMoves.add(board[row][col-i]);
 	        } else {
-	            if (!board[row][col-i].getPiece().getColor().equals(this.color)) {
-	                ValidMoves.add(board[row][col-i]);
+	            if (!board[row][col-i].getPiece().getColor().equals(this.getColor())) {
+	                validMoves.add(board[row][col-i]);
 	            }
 	            break;
 	        }
 	        i++;
 	    }
 
-	    //right
+	    //up
 	    i=1;
 	    while ((row+i)<8) {
 	        if (!board[row+i][col].isOccupied()) {
-	            ValidMoves.add(board[row+i][col]);
+	            validMoves.add(board[row+i][col]);
 	        } else {
-	            if (!board[row+i][col].getPiece().getColor().equals(this.color)) {
-	                ValidMoves.add(board[row+i][col]);
+	            if (!board[row+i][col].getPiece().getColor().equals(this.getColor())) {
+	                validMoves.add(board[row+i][col]);
 	            }
 	            break;
 	        }
 	        i++;
 	    }
 
-	    //left
+	    //down
 	    i=1;
 	    while ((row-i)>=0) {
 	        if (!board[row-i][col].isOccupied()) {
-	            ValidMoves.add(board[row-i][col]);
+	            validMoves.add(board[row-i][col]);
 	        } else {
-	            if (!board[row-i][col].getPiece().getColor().equals(this.color)) {
-	                ValidMoves.add(board[row-i][col]);
+	            if (!board[row-i][col].getPiece().getColor().equals(this.getColor())) {
+	                validMoves.add(board[row-i][col]);
 	            }
 	            break; //The code stops after meeting a piece
 	        }
 	        i++;
 	    }
 
-	    return ValidMoves;
+	    return validMoves;
 	}
 }
