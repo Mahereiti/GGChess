@@ -54,8 +54,8 @@ public class Chessboard extends JPanel {
     	board[7][7].setPiece(new Rook("white", targetH));
     	
     	for (int i=0; i<8; i++) {
-        	board[6][i].setPiece(new Pawn("white", targetH));
-        	board[1][i].setPiece(new Pawn("black", targetH));
+        	board[6][i].setPiece(new Pawn("white", targetH, game));
+        	board[1][i].setPiece(new Pawn("black", targetH, game));
     	}
     }
     

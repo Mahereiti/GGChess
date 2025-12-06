@@ -1,9 +1,14 @@
 package board;
 import java.util.ArrayList;
 
+import app.Game;
+
 public class Pawn extends Piece {
-	public Pawn(String color, int targetH) {
+	Game g;
+	
+	public Pawn(String color, int targetH, Game g) {
 		super(color, "/"+color+"_pieces/pawn.png", targetH);
+		this.g = g;
 	}
 	
 	public ArrayList<Square> getValidMoves() {
@@ -63,6 +68,19 @@ public class Pawn extends Piece {
 	        if (row>0 && col>0 && board[row-1][col-1].isOccupied() && !board[row-1][col-1].getPiece().getColor().equals(this.getColor())) {
 	        	validMoves.add(board[row-1][col-1]);
 	        }
+	    }
+	    
+	    // Special case
+	    // En passant
+	    // en passant possible
+	    if (g.getEnPassantTarget() != null) {
+	    	Square target = g.getEnPassantTarget();
+	    	if (target.getRow()/100==row && (target.getCol()/100==col-1 || target.getCol()/100==col+1)) {
+
+	    		if (this.getColor().equals("white")) {
+	    			validMoves.add(board[row-1][target.getCol()/100]);
+	    		} else validMoves.add(board[row+1][target.getCol()/100]);
+	    	}
 	    }
 
 	    return validMoves;

@@ -34,12 +34,12 @@ public class Mouse {
 		else if (selectedSquare1 != null && selectedSquare1 != s) {
 			//if the move is valid
         	if (selectedSquare1.getPiece().getValidMoves().contains(s)) {
-				game.move(selectedSquare1, s); 	// Move piece
-        		game.switchPlayer();       //the player is switched
-        		
         		if (!selectedSquare1.getPiece().hasMoved()) {
         			selectedSquare1.getPiece().setHasMoved(true);
         		}
+
+        		game.move(selectedSquare1, s); 	// Move piece
+        		game.switchPlayer();       //the player is switched
             }
         	else {
         		s.setInRed();	// invalid move in red

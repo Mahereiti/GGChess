@@ -1,6 +1,8 @@
 package board;
 import java.util.ArrayList;
 
+import app.Game;
+
 public class Knight extends Piece {
 	public Knight(String color, int targetH) {
 		super(color, "/"+color+"_pieces/knight.png", targetH);

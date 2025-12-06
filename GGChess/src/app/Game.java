@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import board.Chessboard;
+import board.Pawn;
 import board.Square;
 import data.Database;
 
@@ -24,11 +25,14 @@ public class Game extends JPanel {
 	KillPiecesPanel killPiecesPanel;
 	Chessboard chessboard;
 	Database db = Database.getInstance();
+	
+	public Square enPassantTarget;
 
     public Game(GGChess window) {
     	this.windowPrincipal = window;
 		this.d = window.d;
         isPlaying = true;
+        enPassantTarget = null;
         
         // Layout of game (add all panels)
         this.setLayout(new BorderLayout());
@@ -105,6 +109,9 @@ public class Game extends JPanel {
     
     // Move the piece from the initial to the final square
  	public void move(Square initSquare, Square finalSquare) {
+ 		this.killEnPassantTarget(initSquare, finalSquare);
+ 		this.updateEnPassantTarget(initSquare, finalSquare);
+
  		// We "kill" the piece in the final Square if there is one
  		if (finalSquare.isOccupied()) {
  			killPiecesPanel.killPiece(finalSquare.getPiece());
@@ -121,11 +128,32 @@ public class Game extends JPanel {
  				//}
  			//}
  		}
- 		
+
  		finalSquare.setPiece(initSquare.getPiece()); 	// Put the piece in the final Square
  		initSquare.setPiece(null); 		// Remove the piece from the init Square
  	}
  	
+ 	public void updateEnPassantTarget(Square initS, Square finalS) {
+ 		// if pawn moved 2 squares -> lock target
+ 		if (initS.getPiece() instanceof Pawn && 
+ 				Math.abs((initS.getRow()/100)-(finalS.getRow()/100))==2) {
+ 			enPassantTarget = finalS;
+ 		} else enPassantTarget = null;
+ 	}
+ 	
+ 	public void killEnPassantTarget(Square initS, Square finalS) {
+ 		if (enPassantTarget != null) {
+ 			if (initS.getPiece() instanceof Pawn && 
+ 					finalS.getCol() == enPassantTarget.getCol()) {
+ 				killPiecesPanel.killPiece(enPassantTarget.getPiece());
+ 				enPassantTarget.setPiece(null);
+ 			}
+ 		}
+ 	}
+ 	
+ 	public Square getEnPassantTarget() {
+ 		return enPassantTarget;
+ 	}
 
 	public void switchPlayer() {
 		playersPanel.switchPlayer();
