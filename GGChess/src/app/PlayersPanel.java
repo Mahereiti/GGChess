@@ -14,56 +14,24 @@ import data.Player;
 
 // Player panels
 public class PlayersPanel extends JPanel {
-	ImageIcon activePlayer;
-	ImageIcon inactivePlayer;
-
-    public Player whitePlayer;
-    public Player blackPlayer;
-    public Player currentPlayer;
-    
-    public Clickable imgPlayerB, imgPlayerW;
-    
+	private ImageIcon activePlayer, inactivePlayer;
+	private Clickable imgPlayerB, imgPlayerW;
+	public Player whitePlayer, blackPlayer, currentPlayer;
     public Dimension d;
+    
+    private Color blackPlayerColorPanel, whitePlayerColorPanel;
+    private JPanel blackPlayerPanel, whitePlayerPanel;
 	
 	public PlayersPanel(Game g) {
 		this.d = g.d;
 		
-		// load icons active/inactive status
-        this.activePlayer = new ImageIcon(getClass().getResource("/galaxy/player_active.png"));
-        this.inactivePlayer = new ImageIcon(getClass().getResource("/galaxy/player_inactive.png"));
+		// init players
+		this.initPlayers();
         
-        // clickable img for players
-		imgPlayerB = new Clickable("/galaxy/player_inactive.png", 0, 0);
-		imgPlayerW = new Clickable("/galaxy/player_active.png", 0, 0);
-
-        // init players
-        blackPlayer = new Player("black", "Joueur 1");
-        whitePlayer = new Player("white", "Joueur 2");
-        currentPlayer = whitePlayer; 		// white first
-        
-        // Panel for black player
-		JPanel blackPlayerPanel = new JPanel() {
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				g.setColor(new Color(59, 41, 153));
-                g.fillRoundRect(this.getWidth()/2-100, 0, 200, d.height/4, 30, 30);
-			}
-		};
-		
-		// Panel for white player
-		JPanel whitePlayerPanel = new JPanel() {
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				g.setColor(new Color(3, 1, 24));
-                g.fillRoundRect(this.getWidth()/2-100, 0, 200, d.height/4, 30, 30);
-			}
-		};
-		
-		// init players panels with name and icons
-		this.initPlayerPanel(blackPlayerPanel, blackPlayer.getName(), imgPlayerB);
-		this.initPlayerPanel(whitePlayerPanel, whitePlayer.getName(), imgPlayerW);
+		// init players panels
+        this.createPlayersPanel();
+		this.configurePlayerPanel(blackPlayerPanel, blackPlayer.getName(), imgPlayerB);
+		this.configurePlayerPanel(whitePlayerPanel, whitePlayer.getName(), imgPlayerW);
 		
 		// Layout vertical
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -75,7 +43,47 @@ public class PlayersPanel extends JPanel {
 		this.setOpaque(false); 	// Transparent
 	}
 	
-	public void initPlayerPanel(JPanel panel, String name, Clickable imgPlayer) {
+	public void initPlayers() {
+		// load icons active/inactive status
+        activePlayer = new ImageIcon(getClass().getResource("/galaxy/player_active.png"));
+        inactivePlayer = new ImageIcon(getClass().getResource("/galaxy/player_inactive.png"));
+        
+        // clickable img for players
+		imgPlayerB = new Clickable("/galaxy/player_inactive.png", 0, 0);
+		imgPlayerW = new Clickable("/galaxy/player_active.png", 0, 0);
+
+        // init players
+        blackPlayer = new Player("black", "Joueur 1");
+        whitePlayer = new Player("white", "Joueur 2");
+        currentPlayer = whitePlayer; 		// white first
+	}
+	
+	public void createPlayersPanel() {
+		whitePlayerColorPanel = new Color(3, 1, 24);	// active color
+        blackPlayerColorPanel = new Color(59, 41, 153);	// inactive color
+        
+		// Panel for black player
+		blackPlayerPanel = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(blackPlayerColorPanel);
+                g.fillRoundRect(this.getWidth()/2-100, 0, 200, d.height/4, 30, 30);
+			}
+		};
+		
+		// Panel for white player
+		whitePlayerPanel = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(whitePlayerColorPanel);
+                g.fillRoundRect(this.getWidth()/2-100, 0, 200, d.height/4, 30, 30);
+			}
+		};
+	}
+	
+	public void configurePlayerPanel(JPanel panel, String name, Clickable imgPlayer) {
 		panel.setPreferredSize(new Dimension(200, d.height/4));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setOpaque(false);
@@ -96,7 +104,7 @@ public class PlayersPanel extends JPanel {
 	}
 	
 	public void switchPlayer() {
-		// switch active/inactive player and image
+		// switch active/inactive player and their icons
 		if (currentPlayer == whitePlayer) {
 			currentPlayer = blackPlayer;
 			imgPlayerB.setIcon(activePlayer);
@@ -107,6 +115,13 @@ public class PlayersPanel extends JPanel {
 			imgPlayerB.setIcon(inactivePlayer);
 			imgPlayerW.setIcon(activePlayer);
         }
+		
+		// change color panels
+		Color tempC = blackPlayerColorPanel;
+		blackPlayerColorPanel = whitePlayerColorPanel;
+		whitePlayerColorPanel = tempC;
+		blackPlayerPanel.repaint();
+		whitePlayerPanel.repaint();
 	}
 	
 	public String getCurrentPlayerName() {
