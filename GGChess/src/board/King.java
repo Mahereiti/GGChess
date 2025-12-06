@@ -55,5 +55,21 @@ public class King extends Piece {
 				validMoves.add(board[row+1][col+1]);
 			}
 		}
+		
+		// Special cases
+		
+		// Castling
+		// Big castling
+		if (!hasMoved && !board[row][1].isOccupied() && !board[row][2].isOccupied() && !board[row][3].isOccupied()
+				&& (board[0][0].getPiece() instanceof Rook) && !board[0][0].getPiece().hasMoved()) {
+			validMoves.add(board[row][2]);
+		}
+		
+		// Little castling
+		if (!hasMoved && !board[row][5].isOccupied() && !board[row][6].isOccupied()
+				&& (board[row][0].getPiece() instanceof Rook) && !board[row][0].getPiece().hasMoved()) {
+			validMoves.add(board[row][6]);
+		}
+		
 		return validMoves;}
 }

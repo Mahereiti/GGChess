@@ -1,6 +1,7 @@
 // Class to handle clicks
 package app;
 
+import board.King;
 import board.Square;
 
 public class Mouse {
@@ -35,6 +36,10 @@ public class Mouse {
         	if (selectedSquare1.getPiece().getValidMoves().contains(s)) {
 				game.move(selectedSquare1, s); 	// Move piece
         		game.switchPlayer();       //the player is switched
+        		
+        		if (!selectedSquare1.getPiece().hasMoved()) {
+        			selectedSquare1.getPiece().setHasMoved(true);
+        		}
             }
         	else {
         		s.setInRed();	// invalid move in red

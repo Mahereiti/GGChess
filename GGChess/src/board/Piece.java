@@ -9,10 +9,13 @@ public abstract class Piece {
 	protected ImageIcon icon;
 	protected Square square;
 	
+	protected boolean hasMoved;
+	
 	public Piece(String color, String path, int targetH){
 		this.color = color;
 		this.icon = new ImageIcon(getClass().getResource(path));
 		this.icon.setImage(this.icon.getImage().getScaledInstance(targetH, targetH, Image.SCALE_SMOOTH));
+		this.hasMoved = false;
 	}
 	
 	// getters
@@ -28,4 +31,12 @@ public abstract class Piece {
 	}
 	
 	public abstract ArrayList<Square> getValidMoves();
+
+	public boolean hasMoved() {
+		return hasMoved;
+	}
+
+	public void setHasMoved(boolean b) {
+		hasMoved = b;
+	}
 }

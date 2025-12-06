@@ -2,6 +2,7 @@ package board;
 import java.util.ArrayList;
 
 public class Rook extends Piece{
+	
 	public Rook(String color, int targetH) {
 		super(color, "/"+color+"_pieces/rook.png", targetH);
 	}
