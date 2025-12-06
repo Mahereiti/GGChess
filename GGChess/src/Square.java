@@ -69,7 +69,7 @@ public class Square extends Clickable {
 	    } else {
 	        this.setOpaque(false);
 	    }
-	    repaint();		// reset color
+	    repaint();		// refresh
 	}
 }
     
