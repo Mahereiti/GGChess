@@ -107,4 +107,15 @@ public class Players extends JPanel {
 			imgPlayerW.setIcon(activePlayer);
         }
 	}
+	
+	public String getCurrentPlayer() {
+		return currentPlayer.getName();
+	}
+	
+	public String getNonCurrentPlayer() {
+		if(currentPlayer.getName().equals(whitePlayer.getName())) {
+			return blackPlayer.getName();
+		}
+		else return whitePlayer.getName();
+	}
 }

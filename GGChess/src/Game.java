@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -8,12 +9,15 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import java.sql.SQLException;
+
 // Class which represents the chess game, extends JPanel
 public class Game extends JPanel {
 	Dimension d;
 	private boolean isPlaying;
 	Players playersPanel;
 	KillPiecesPanel killPiecesPanel;
+	Database db = Database.getInstance();
 
     public Game(GGChess window) {
 		this.d = window.d;
@@ -79,7 +83,21 @@ public class Game extends JPanel {
     // Move the piece from the initial to the final square
  	public void move(Square initSquare, Square finalSquare) {
  		// We "kill" the piece in the final Square if there is one
- 		if (finalSquare.isOccupied()) killPiecesPanel.killPiece(finalSquare.getPiece());
+ 		if (finalSquare.isOccupied()) {
+ 			killPiecesPanel.killPiece(finalSquare.getPiece());
+ 			if(finalSquare.getPiece() instanceof King) {
+ 				try {
+ 					db.updateWins(playersPanel.getCurrentPlayer());
+ 				} catch (SQLException e) {
+ 					e.printStackTrace();
+ 				}
+ 				try {
+ 					db.updateLosses(playersPanel.getNonCurrentPlayer());
+ 				} catch (SQLException e) {
+ 					e.printStackTrace();
+ 				}
+ 			}
+ 		}
  		
  		finalSquare.setPiece(initSquare.getPiece()); 	// Put the piece in the final Square
  		initSquare.setPiece(null); 		// Remove the piece from the init Square
