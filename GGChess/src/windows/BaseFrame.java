@@ -1,3 +1,4 @@
+package windows;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,6 +10,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import app.Clickable;
 
 public abstract class BaseFrame extends JFrame {
 	protected JPanel contentPanel;

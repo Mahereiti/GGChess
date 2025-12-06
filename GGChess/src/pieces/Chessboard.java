@@ -1,12 +1,15 @@
+package pieces;
 import java.awt.*;
 import javax.swing.JPanel;
+
+import app.Game;
 
 // Represents the entire chessboard, which extends JPanel
 public class Chessboard extends JPanel {
     private Square[][] board;
     Game game;
     
-    Chessboard(Game game) {
+    public Chessboard(Game game) {
     	this.game = game;
     	board = new Square[8][8];
     	initBoard(); 		// Fill board with squares and initialize pieces
@@ -19,7 +22,7 @@ public class Chessboard extends JPanel {
     	for (int row=0; row<8; row++) {
     		for (int col=0; col<8; col++) {
     			// create white or black square
-    			if ((row+col)%2 == 0) board[row][col] = new Square(row*100, col*100, 'w', this.board,this.game);
+    			if ((row+col)%2 == 0) board[row][col] = new Square(row*100, col*100, 'w', this.board, this.game);
     			else board[row][col] = new Square(row*100, col*100, 'b', this.board, this.game);
     			this.add(board[row][col]); 		// add square on the panel Chessboard
     		}

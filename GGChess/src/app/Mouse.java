@@ -1,5 +1,8 @@
-
 // Class to handle clicks
+package app;
+
+import pieces.Square;
+
 public class Mouse {
 	
 	// Store the first square selected containing a piece

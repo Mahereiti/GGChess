@@ -1,8 +1,11 @@
+package app;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+
+import windows.RulesWindow;
 
 public class Menu extends JPanel {
 	Menu(GGChess window) {		

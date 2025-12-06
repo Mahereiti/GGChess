@@ -1,13 +1,18 @@
+package windows;
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
 
-public class EndGame extends BaseFrame {
+import app.Clickable;
+import app.Game;
+import data.Player;
+
+public class EndGameWindow extends BaseFrame {
 	private Game g;
 	private Player actualPlayer, winner;
 
-	public EndGame(Game g, Player actualPlayer, Player winner) {
+	public EndGameWindow(Game g, Player actualPlayer, Player winner) {
 		super("Fin de partie", 600, 500);
 		this.g = g;
 		this.actualPlayer = actualPlayer;

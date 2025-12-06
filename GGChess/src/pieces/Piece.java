@@ -1,3 +1,4 @@
+package pieces;
 import javax.swing.*;
 
 import java.awt.Image;

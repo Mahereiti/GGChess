@@ -1,3 +1,4 @@
+package app;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -7,6 +8,8 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import windows.TurnOrderWindow;
 
 // Main class which links every parts of the app
 public class GGChess extends JFrame {

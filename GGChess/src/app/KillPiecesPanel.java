@@ -1,9 +1,12 @@
+package app;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+
+import pieces.Piece;
 
 // killed Pieces
 public class KillPiecesPanel extends JPanel {

@@ -1,3 +1,4 @@
+package app;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,8 +10,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import data.Player;
+
 // Player panels
-public class Players extends JPanel {
+public class PlayersPanel extends JPanel {
 	ImageIcon activePlayer;
 	ImageIcon inactivePlayer;
 
@@ -22,7 +25,7 @@ public class Players extends JPanel {
     
     public Dimension d;
 	
-	public Players(Game g) {
+	public PlayersPanel(Game g) {
 		this.d = g.d;
 		
 		// load icons active/inactive status

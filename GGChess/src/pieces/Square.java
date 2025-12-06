@@ -1,4 +1,9 @@
+package pieces;
 import java.awt.Color;
+
+import app.Clickable;
+import app.Mouse;
+import app.Game;
 
 // class representing a square on the Chessboard, which extends Clickable which extends JButton
 public class Square extends Clickable {

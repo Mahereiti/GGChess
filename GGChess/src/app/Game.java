@@ -1,3 +1,4 @@
+package app;
 import java.awt.BorderLayout;
 
 import java.awt.Dimension;
@@ -8,14 +9,18 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import data.Database;
+import pieces.Chessboard;
+import pieces.Square;
+
 import java.sql.SQLException;
 
 // Class which represents the chess game, extends JPanel
 public class Game extends JPanel {
-	GGChess windowPrincipal;
-	Dimension d;
+	public GGChess windowPrincipal;
+	public Dimension d;
 	private boolean isPlaying;
-	Players playersPanel;
+	PlayersPanel playersPanel;
 	KillPiecesPanel killPiecesPanel;
 	Chessboard chessboard;
 	Database db = Database.getInstance();
@@ -89,7 +94,7 @@ public class Game extends JPanel {
     }
     
     public void initPlayersPanel() {
-        playersPanel = new Players(this);
+        playersPanel = new PlayersPanel(this);
         this.add(playersPanel, BorderLayout.WEST);		// add playersPanel
     }
     
