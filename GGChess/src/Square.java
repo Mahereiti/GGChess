@@ -53,5 +53,21 @@ public class Square extends Clickable {
 		// If white square, just make it transparent
 		} else this.setOpaque(false);
 	}
+	
+	public void setInRed() {
+		this.setBackground(Color.RED);
+        this.setOpaque(true);
+	}
+	
+	public void resetColor() {
+	    if (color == 'b') {
+	        this.setBackground(Color.BLACK);
+	        this.setOpaque(true);
+	    } else if (color == 'w') {
+	        this.setOpaque(false);
+	        this.setBackground(null);
+	    }
+	    this.repaint();
+	}
 }
     

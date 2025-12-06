@@ -85,18 +85,18 @@ public class Game extends JPanel {
  		// We "kill" the piece in the final Square if there is one
  		if (finalSquare.isOccupied()) {
  			killPiecesPanel.killPiece(finalSquare.getPiece());
- 			if(finalSquare.getPiece() instanceof King) {
- 				try {
- 					db.updateWins(playersPanel.getCurrentPlayer());
- 				} catch (SQLException e) {
- 					e.printStackTrace();
- 				}
- 				try {
- 					db.updateLosses(playersPanel.getNonCurrentPlayer());
- 				} catch (SQLException e) {
- 					e.printStackTrace();
- 				}
- 			}
+ 			//if(finalSquare.getPiece() instanceof King) {
+ 				//try {
+ 					//db.updateWins(playersPanel.getCurrentPlayer());
+ 				//} catch (SQLException e) {
+ 					//e.printStackTrace();
+ 				//}
+ 				//try {
+ 					//db.updateLosses(playersPanel.getNonCurrentPlayer());
+ 				//} catch (SQLException e) {
+ 					//e.printStackTrace();
+ 				//}
+ 			//}
  		}
  		
  		finalSquare.setPiece(initSquare.getPiece()); 	// Put the piece in the final Square
