@@ -13,6 +13,7 @@ public class GGChess extends JFrame {
 	Image bg; 		// background image
 	CardLayout cardLayout;
 	JPanel mainPanel;
+	Game gamePanel;
 	Dimension d;
 	
 	GGChess() {
@@ -20,7 +21,7 @@ public class GGChess extends JFrame {
 		
 		this.setTitle("GGChess");
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//this.setUndecorated(true); 	// No borders
+		this.setUndecorated(true); 	// No borders
 		
 		// Draw over a transparent JPanel
         this.setContentPane(new JPanel() {
@@ -36,7 +37,7 @@ public class GGChess extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
         Menu menuPanel = new Menu(this);
-		Game gamePanel = new Game(this);
+		gamePanel = new Game(this);
 		
 		// Add differents panels (windows) to the mainPanel
 		mainPanel.add(gamePanel, "game");
@@ -54,6 +55,7 @@ public class GGChess extends JFrame {
 	
 	public void showGame() {
 		cardLayout.show(this.mainPanel, "game");
+		new TurnOrderWindow(gamePanel.playersPanel.getCurrentPlayerName());
 	}
 	
 	public static void main(String[] args) {
