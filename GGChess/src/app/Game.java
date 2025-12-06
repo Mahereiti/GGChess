@@ -9,9 +9,9 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import board.Chessboard;
+import board.Square;
 import data.Database;
-import pieces.Chessboard;
-import pieces.Square;
 
 import java.sql.SQLException;
 

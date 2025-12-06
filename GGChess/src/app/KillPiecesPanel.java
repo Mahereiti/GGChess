@@ -6,7 +6,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import pieces.Piece;
+import board.Piece;
 
 // killed Pieces
 public class KillPiecesPanel extends JPanel {
@@ -17,11 +17,11 @@ public class KillPiecesPanel extends JPanel {
 	public JPanel whiteKillPanel, blackKillPanel;
 	
 	public KillPiecesPanel(Game g) {
-		// store killed pieces
+		// store killed board
         this.whiteKilled = new ArrayList<Piece>();
 		this.blackKilled = new ArrayList<Piece>();
 		
-		// panels of killed pieces without layout
+		// panels of killed board without layout
 		whiteKillPanel = new JPanel(null);
 		blackKillPanel = new JPanel(null);
 		
@@ -58,8 +58,8 @@ public class KillPiecesPanel extends JPanel {
 		kill.setIcon(p.getIcon());
 		
 		int xStart = (this.getWidth()-310)/2;			// start x : (width - (7pieces*30+100))/2
-		int xPiece = ((whiteKilled.size()-1)*30)%240;	// each piece +30px, reset every 8 pieces
-		int yPiece = ((whiteKilled.size()-1)/8)*80;	// new row every 8 pieces
+		int xPiece = ((whiteKilled.size()-1)*30)%240;	// each piece +30px, reset every 8 board
+		int yPiece = ((whiteKilled.size()-1)/8)*80;	// new row every 8 board
 		
 		kill.setBounds(xStart+xPiece, yPiece, 100, 100);
 		whiteKillPanel.add(kill);
@@ -71,10 +71,10 @@ public class KillPiecesPanel extends JPanel {
 		Clickable kill = new Clickable();
 		kill.setIcon(p.getIcon());
 		int xStart = (this.getWidth()-310)/2;			// start x : (width - (7pieces*30+100))/2
-		int xPiece = ((blackKilled.size()-1)*30)%240;	// each piece +30px, reset every 8 pieces
+		int xPiece = ((blackKilled.size()-1)*30)%240;	// each piece +30px, reset every 8 board
 		
 		int yStart = blackKillPanel.getHeight()-100;	// start y
-		int yPiece = ((blackKilled.size()-1)/8)*80;	// new row every 8 pieces
+		int yPiece = ((blackKilled.size()-1)/8)*80;	// new row every 8 board
 		
 		kill.setBounds(xStart+xPiece, yStart-yPiece, 100, 100);
 		blackKillPanel.add(kill);

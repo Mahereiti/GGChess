@@ -1,4 +1,4 @@
-package pieces;
+package board;
 import java.awt.*;
 import javax.swing.JPanel;
 
@@ -12,7 +12,7 @@ public class Chessboard extends JPanel {
     public Chessboard(Game game) {
     	this.game = game;
     	board = new Square[8][8];
-    	initBoard(); 		// Fill board with squares and initialize pieces
+    	initBoard(); 		// Fill board with squares and initialize board
     	printBoard();		// Print board
     }
     
@@ -32,10 +32,10 @@ public class Chessboard extends JPanel {
     }
     
     public void initPieces() {
-    	// To scale pieces
+    	// To scale board
     	int targetH = (game.d.height-200)/8;
     	
-    	// Create and set pieces on board
+    	// Create and set board on board
     	board[0][0].setPiece(new Rook("black", targetH));
     	board[0][1].setPiece(new Knight("black", targetH));
     	board[0][2].setPiece(new Bishop("black", targetH));

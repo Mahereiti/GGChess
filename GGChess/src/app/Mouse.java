@@ -1,7 +1,7 @@
 // Class to handle clicks
 package app;
 
-import pieces.Square;
+import board.Square;
 
 public class Mouse {
 	

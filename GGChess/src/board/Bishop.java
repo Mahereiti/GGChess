@@ -1,4 +1,4 @@
-package pieces;
+package board;
 import java.util.ArrayList;
 
 public class Bishop extends Piece {
