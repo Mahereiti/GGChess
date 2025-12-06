@@ -30,16 +30,16 @@ public class Players extends JPanel {
         this.inactivePlayer = new ImageIcon(getClass().getResource("/galaxy/player_inactive.png"));
         
         // clickable img for players
-		imgPlayerB = new Clickable("/galaxy/player_active.png", 0, 0);
-		imgPlayerW = new Clickable("/galaxy/player_inactive.png", 0, 0);
+		imgPlayerB = new Clickable("/galaxy/player_inactive.png", 0, 0);
+		imgPlayerW = new Clickable("/galaxy/player_active.png", 0, 0);
 
         // init players
-        blackPlayer = new Player("black");
-        whitePlayer = new Player("white");
+        blackPlayer = new Player("black", "Joueur 1");
+        whitePlayer = new Player("white", "Joueur 2");
         currentPlayer = whitePlayer; 		// white first
         
-        // Panel for white killed pieces
-		JPanel blackKillsPanel = new JPanel() {
+        // Panel for black player
+		JPanel blackPlayerPanel = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -48,8 +48,8 @@ public class Players extends JPanel {
 			}
 		};
 		
-		// Panel for black killed pieces
-		JPanel whiteKillsPanel = new JPanel() {
+		// Panel for white player
+		JPanel whitePlayerPanel = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -59,13 +59,14 @@ public class Players extends JPanel {
 		};
 		
 		// init players panels with name and icons
-		this.initPlayerPanel(blackKillsPanel, "Joueur 1", imgPlayerB);
-		this.initPlayerPanel(whiteKillsPanel, "Joueur 2", imgPlayerW);
+		this.initPlayerPanel(blackPlayerPanel, blackPlayer.getName(), imgPlayerB);
+		this.initPlayerPanel(whitePlayerPanel, whitePlayer.getName(), imgPlayerW);
 		
 		// Layout vertical
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.add(blackKillsPanel);
-		this.add(whiteKillsPanel);
+		this.add(Box.createGlue());			// create flexible space to center align panels
+		this.add(blackPlayerPanel);
+		this.add(whitePlayerPanel);
 		
 		this.setPreferredSize(new Dimension((d.width-(d.height-200))/2, d.height-200));
 		this.setOpaque(false); 	// Transparent
@@ -75,9 +76,6 @@ public class Players extends JPanel {
 		panel.setPreferredSize(new Dimension(200, d.height/4));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setOpaque(false);
-		
-		// scale player img to fit panel
-		imgPlayer.scaleH(d.height/6);
 		
 		// label for name
 		JLabel namePlayer = new JLabel(name);
@@ -108,14 +106,19 @@ public class Players extends JPanel {
         }
 	}
 	
-	public String getCurrentPlayer() {
+	public String getCurrentPlayerName() {
 		return currentPlayer.getName();
 	}
 	
-	public String getNonCurrentPlayer() {
+	public String getNonCurrentPlayerName() {
 		if(currentPlayer.getName().equals(whitePlayer.getName())) {
 			return blackPlayer.getName();
 		}
 		else return whitePlayer.getName();
+	}
+
+	public void reset() {
+		// white starts
+		if (currentPlayer == blackPlayer) switchPlayer();
 	}
 }
