@@ -75,7 +75,6 @@ public abstract class BaseFrame extends JFrame {
 		this.add(Box.createRigidArea(new Dimension(0, 15)), BorderLayout.SOUTH);
 		
 		this.setVisible(true); 	// Show frame
-		this.setContent();
 	}
 	
 	public abstract void setContent();

@@ -17,6 +17,8 @@ public class EndGameWindow extends BaseFrame {
 		this.g = g;
 		this.actualPlayer = actualPlayer;
 		this.winner = winner;
+		
+		this.setContent();
 	}
 
 	@Override

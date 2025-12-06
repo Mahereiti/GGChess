@@ -1,11 +1,11 @@
 package data;
 
 public class Player {
-	String color;
-	String name;
+	private String color;
+	private String name;
 	
 	public Player(String color, String name){
-		this.color=color;
+		this.color = color;
 		this.name = name;
 	}
 	

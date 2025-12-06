@@ -11,6 +11,7 @@ import javax.swing.JTextPane;
 public class RulesWindow extends BaseFrame {
 	public RulesWindow() {
 		super("Règles du jeu", 800, 600);
+		this.setContent();
 	}
 
 	@Override

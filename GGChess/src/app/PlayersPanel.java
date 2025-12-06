@@ -114,14 +114,12 @@ public class PlayersPanel extends JPanel {
 	}
 	
 	public String getNonCurrentPlayerName() {
-		if(currentPlayer.getName().equals(whitePlayer.getName())) {
+		if(currentPlayer == whitePlayer) {
 			return blackPlayer.getName();
-		}
-		else return whitePlayer.getName();
+		} else return whitePlayer.getName();
 	}
 
 	public void reset() {
-		// white starts
-		if (currentPlayer == blackPlayer) switchPlayer();
+		if (currentPlayer == blackPlayer) switchPlayer();	// white starts
 	}
 }

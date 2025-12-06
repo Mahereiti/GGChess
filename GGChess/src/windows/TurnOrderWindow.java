@@ -10,6 +10,8 @@ public class TurnOrderWindow extends BaseFrame {
 	public TurnOrderWindow(String firstPlayer) {
 		super("Tour", 600, 200);
 		this.firstPlayer = firstPlayer;
+		
+		this.setContent();
 	}
 
 	@Override
