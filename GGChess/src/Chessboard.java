@@ -25,6 +25,10 @@ public class Chessboard extends JPanel {
     		}
     	}
     	
+    	this.initPieces();
+    }
+    
+    public void initPieces() {
     	// To scale pieces
     	int targetH = (game.d.height-200)/8;
     	
@@ -37,14 +41,6 @@ public class Chessboard extends JPanel {
     	board[0][5].setPiece(new Bishop("black", targetH));
     	board[0][6].setPiece(new Knight("black", targetH));
     	board[0][7].setPiece(new Rook("black", targetH));
-    	board[1][0].setPiece(new Pawn("black", targetH));
-    	board[1][1].setPiece(new Pawn("black", targetH));
-    	board[1][2].setPiece(new Pawn("black", targetH));
-    	board[1][3].setPiece(new Pawn("black", targetH));
-    	board[1][4].setPiece(new Pawn("black", targetH));
-    	board[1][5].setPiece(new Pawn("black", targetH));
-    	board[1][6].setPiece(new Pawn("black", targetH));
-    	board[1][7].setPiece(new Pawn("black", targetH));
     	board[7][0].setPiece(new Rook("white", targetH));
     	board[7][1].setPiece(new Knight("white", targetH));
     	board[7][2].setPiece(new Bishop("white", targetH));
@@ -53,14 +49,11 @@ public class Chessboard extends JPanel {
     	board[7][5].setPiece(new Bishop("white", targetH));
     	board[7][6].setPiece(new Knight("white", targetH));
     	board[7][7].setPiece(new Rook("white", targetH));
-    	board[6][0].setPiece(new Pawn("white", targetH));
-    	board[6][1].setPiece(new Pawn("white", targetH));
-    	board[6][2].setPiece(new Pawn("white", targetH));
-    	board[6][3].setPiece(new Pawn("white", targetH));
-    	board[6][4].setPiece(new Pawn("white", targetH));
-    	board[6][5].setPiece(new Pawn("white", targetH));
-    	board[6][6].setPiece(new Pawn("white", targetH));
-    	board[6][7].setPiece(new Pawn("white", targetH));
+    	
+    	for (int i=0; i<8; i++) {
+        	board[6][i].setPiece(new Pawn("white", targetH));
+        	board[1][i].setPiece(new Pawn("black", targetH));
+    	}
     }
     
     public void printBoard() {
@@ -75,4 +68,18 @@ public class Chessboard extends JPanel {
             }
         }
     }
+
+	public void resetBoard() {
+		this.removeAllPieces();
+		this.initPieces();
+    	
+	}
+
+	private void removeAllPieces() {
+		for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+               	if (board[row][col].isOccupied()) board[row][col].setPiece(null);
+            }
+        }
+	}
 }
