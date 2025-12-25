@@ -21,7 +21,7 @@ public class Game extends JPanel {
 	public GGChess windowPrincipal;
 	public Dimension d;
 	private boolean isPlaying;
-	PlayersPanel playersPanel;
+	public PlayersPanel playersPanel;
 	KillPiecesPanel killPiecesPanel;
 	Chessboard chessboard;
 	Database db = Database.getInstance();

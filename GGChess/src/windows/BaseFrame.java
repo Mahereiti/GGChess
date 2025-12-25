@@ -15,7 +15,7 @@ import app.Clickable;
 
 public abstract class BaseFrame extends JFrame {
 	protected JPanel contentPanel;
-	
+	protected Clickable closeBtn;
 	public BaseFrame(String title, int w, int h) {
 		//______________________ WINDOW _______________________________
 		this.setSize(w, h);
@@ -43,7 +43,7 @@ public abstract class BaseFrame extends JFrame {
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 		
 		// add Bouton to close the window
-		Clickable closeBtn = new Clickable("/galaxy/close.png", 0, 0);
+		closeBtn = new Clickable("/galaxy/close.png", 0, 0);
 		closeBtn.addActionListener(e->this.dispose());
 		
 		// add to topPanel : close btn + title + fixed space

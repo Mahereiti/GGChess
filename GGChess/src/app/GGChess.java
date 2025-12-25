@@ -1,5 +1,6 @@
 package app;
 import java.awt.CardLayout;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import windows.TurnOrderWindow;
+import windows.AskNames;
 
 // Main class which links every parts of the app
 public class GGChess extends JFrame {
@@ -41,7 +43,6 @@ public class GGChess extends JFrame {
         mainPanel = new JPanel(cardLayout);
         Menu menuPanel = new Menu(this);
 		gamePanel = new Game(this);
-		
 		// Add differents panels (windows) to the mainPanel
 		mainPanel.add(gamePanel, "game");
 		mainPanel.add(menuPanel, "menu");
@@ -58,11 +59,15 @@ public class GGChess extends JFrame {
 	
 	public void showGame() {
 		cardLayout.show(this.mainPanel, "game");
-		new TurnOrderWindow(gamePanel.playersPanel.getCurrentPlayerName());
+		new AskNames(this);
 	}
 	
 	public static void main(String[] args) {
 		GGChess ggc = new GGChess();
 		ggc.setVisible(true);
+	}
+	
+	public Game getGamePanel() {
+		return gamePanel;
 	}
 }
