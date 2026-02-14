@@ -129,15 +129,13 @@ public class Game extends JPanel {
  				}
  			}
  		}
- 		else {
- 			if (isEchec(initSquare)) {
- 				
- 			}
-
  		finalSquare.setPiece(initSquare.getPiece()); 	// Put the piece in the final Square
  		initSquare.setPiece(null); 		// Remove the piece from the init Square
+ 		if (isEchec(finalSquare)) {
+ 				
+ 			}
  	}
- 	}
+ 
  	
  	public boolean isEchec(Square s) {
  		for(Square sq: s.getPiece().getValidMoves()) {
