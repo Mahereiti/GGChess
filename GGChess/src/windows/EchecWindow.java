@@ -1,28 +1,25 @@
 package windows;
+
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-import data.Player;
-import app.Game;
 
-public class TurnOrderWindow extends BaseFrame {
-	private String firstPlayer;
+public class EchecWindow extends BaseFrame {
 
-	public TurnOrderWindow(String firstPlayer) {
+	public EchecWindow() {
 		super("Tour", 600, 200);
-		this.firstPlayer = firstPlayer;
-		
 		this.setContent();
 	}
 
 	@Override
 	public void setContent() {
-		JLabel text = new JLabel("A "+firstPlayer +" de jouer !");
+		JLabel text = new JLabel("Echec");
 		text.setForeground(Color.WHITE);
 		text.setFont(new Font("Sans-serif", Font.BOLD, 40));
 		text.setAlignmentX(CENTER_ALIGNMENT);
 		
 		contentPanel.add(text);
 	}
+
 }

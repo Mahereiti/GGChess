@@ -69,13 +69,17 @@ public class AskNames extends BaseFrame {
             step = 2;
             textLabel.setText("Veuillez entrer le nom du joueur 2");
             nameField.setText("");
+            ggchess.getGamePanel().playersPanel.getCurrentPlayer().setName(name);
+            ggchess.getGamePanel().playersPanel.updatePlayerName(true, name);
 
         } else {
             String player2Name = name;
-
+            ggchess.getGamePanel().playersPanel.getCurrentPlayer().setName(name);
+            ggchess.getGamePanel().playersPanel.updatePlayerName(false, name);
             //We close the window
             dispose();
             new TurnOrderWindow(ggchess.getGamePanel().playersPanel.getCurrentPlayerName());
         }
+        
     }
 }

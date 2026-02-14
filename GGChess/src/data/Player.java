@@ -8,7 +8,9 @@ public class Player {
 		this.color = color;
 		this.name = name;
 	}
-	
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getColor() {
 		return this.color;
 	}

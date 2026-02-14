@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import board.Chessboard;
 import board.Pawn;
+import board.King;
 import board.Square;
 import data.Database;
 
@@ -115,24 +116,38 @@ public class Game extends JPanel {
  		// We "kill" the piece in the final Square if there is one
  		if (finalSquare.isOccupied()) {
  			killPiecesPanel.killPiece(finalSquare.getPiece());
- 			//if(finalSquare.getPiece() instanceof King) {
- 				//try {
- 					//db.updateWins(playersPanel.getCurrentPlayer());
- 				//} catch (SQLException e) {
- 					//e.printStackTrace();
- 				//}
- 				//try {
- 					//db.updateLosses(playersPanel.getNonCurrentPlayer());
- 				//} catch (SQLException e) {
- 					//e.printStackTrace();
- 				//}
- 			//}
+ 			if(finalSquare.getPiece() instanceof King) {
+ 				try {
+ 					db.updateWins(playersPanel.getCurrentPlayerName());
+ 				} catch (SQLException e) {
+ 					e.printStackTrace();
+ 				}
+ 				try {
+ 					db.updateLosses(playersPanel.getNonCurrentPlayerName());
+ 				} catch (SQLException e) {
+ 					e.printStackTrace();
+ 				}
+ 			}
  		}
+ 		else {
+ 			if (isEchec(initSquare)) {
+ 				
+ 			}
 
  		finalSquare.setPiece(initSquare.getPiece()); 	// Put the piece in the final Square
  		initSquare.setPiece(null); 		// Remove the piece from the init Square
  	}
+ 	}
  	
+ 	public boolean isEchec(Square s) {
+ 		for(Square sq: s.getPiece().getValidMoves()) {
+				if(sq.getPiece() instanceof King && !sq.getPiece().getColor().equals(playersPanel.getCurrentPlayerColor())) {
+					return true;
+				}
+		}
+		return false;
+ 	}
+
  	public void updateEnPassantTarget(Square initS, Square finalS) {
  		// if pawn moved 2 squares -> lock target
  		if (initS.getPiece() instanceof Pawn && 

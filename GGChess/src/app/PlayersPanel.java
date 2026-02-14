@@ -20,7 +20,10 @@ public class PlayersPanel extends JPanel {
     public Dimension d;
     
     private Color blackPlayerColorPanel, whitePlayerColorPanel;
-    private JPanel blackPlayerPanel, whitePlayerPanel;
+    public JPanel blackPlayerPanel, whitePlayerPanel;
+    
+    private JLabel blackPlayerLabel;
+    private JLabel whitePlayerLabel;
 	
 	public PlayersPanel(Game g) {
 		this.d = g.d;
@@ -30,8 +33,8 @@ public class PlayersPanel extends JPanel {
         
 		// init players panels
         this.createPlayersPanel();
-		this.configurePlayerPanel(blackPlayerPanel, blackPlayer.getName(), imgPlayerB);
-		this.configurePlayerPanel(whitePlayerPanel, whitePlayer.getName(), imgPlayerW);
+		this.configurePlayerPanel(blackPlayerPanel, blackPlayer.getName(), imgPlayerB, true);
+		this.configurePlayerPanel(whitePlayerPanel, whitePlayer.getName(), imgPlayerW, false);
 		
 		// Layout vertical
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -83,7 +86,7 @@ public class PlayersPanel extends JPanel {
 		};
 	}
 	
-	public void configurePlayerPanel(JPanel panel, String name, Clickable imgPlayer) {
+	public void configurePlayerPanel(JPanel panel, String name, Clickable imgPlayer, boolean isBlack) {
 		panel.setPreferredSize(new Dimension(200, d.height/4));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setOpaque(false);
@@ -92,6 +95,9 @@ public class PlayersPanel extends JPanel {
 		JLabel namePlayer = new JLabel(name);
 		namePlayer.setForeground(Color.white);
 		namePlayer.setFont(new Font("Sans-serif", Font.BOLD , 14));
+		
+		if (isBlack) blackPlayerLabel = namePlayer;
+	    else whitePlayerLabel = namePlayer;
 		
 		// center align
 		panel.setAlignmentX(CENTER_ALIGNMENT);
@@ -102,6 +108,18 @@ public class PlayersPanel extends JPanel {
 		panel.add(namePlayer);
 		panel.add(Box.createGlue()); //space
 	}
+	
+	public void updatePlayerName(boolean isBlack, String newName) {
+        if (isBlack) {
+            blackPlayerLabel.setText(newName);
+            blackPlayerPanel.revalidate();
+            blackPlayerPanel.repaint();
+        } else {
+            whitePlayerLabel.setText(newName);
+            whitePlayerPanel.revalidate();
+            whitePlayerPanel.repaint();
+        }
+    }
 	
 	public void switchPlayer() {
 		// switch active/inactive player and their icons
@@ -124,6 +142,10 @@ public class PlayersPanel extends JPanel {
 		whitePlayerPanel.repaint();
 	}
 	
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+	
 	public String getCurrentPlayerName() {
 		return currentPlayer.getName();
 	}
@@ -133,7 +155,22 @@ public class PlayersPanel extends JPanel {
 			return blackPlayer.getName();
 		} else return whitePlayer.getName();
 	}
+	
+	public String getCurrentPlayerColor() {
+		if(currentPlayer == whitePlayer) {
+			return whitePlayer.getColor();
+		}
+		else {return blackPlayer.getColor();}
+	}
 
+	public JPanel getBlackPlayerPanel() {
+		return blackPlayerPanel;
+	}
+	
+	public JPanel getWhitePlayerPanel() {
+		return whitePlayerPanel;
+	}
+	
 	public void reset() {
 		if (currentPlayer == blackPlayer) switchPlayer();	// white starts
 	}
