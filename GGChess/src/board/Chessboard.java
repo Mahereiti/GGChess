@@ -16,6 +16,10 @@ public class Chessboard extends JPanel {
     	printBoard();		// Print board
     }
     
+    public Square[][] getBoard() {
+    	return board;
+    }
+    
     public void initBoard() {
     	// Create squares line by line
     	// Go through rows then lines because of add() which add rows by rows

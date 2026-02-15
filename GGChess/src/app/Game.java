@@ -112,6 +112,8 @@ public class Game extends JPanel {
  	public void move(Square initSquare, Square finalSquare) {
  		this.killEnPassantTarget(initSquare, finalSquare);
  		this.updateEnPassantTarget(initSquare, finalSquare);
+ 		
+ 		if (initSquare.getPiece() instanceof King) this.castling(initSquare, finalSquare);
 
  		// We "kill" the piece in the final Square if there is one
  		if (finalSquare.isOccupied()) {
@@ -155,13 +157,40 @@ public class Game extends JPanel {
  	}
  	
  	public void killEnPassantTarget(Square initS, Square finalS) {
- 		if (enPassantTarget != null) {
- 			if (initS.getPiece() instanceof Pawn && 
- 					finalS.getCol() == enPassantTarget.getCol()) {
+ 		if (enPassantTarget != null && initS.getPiece() instanceof Pawn) {
+ 			int initRow = initS.getRow()/100;
+ 			int initCol = initS.getCol()/100;
+ 			int finalRow = finalS.getRow()/100;
+ 			int finalCol = finalS.getCol()/100;
+ 			int targetRow = enPassantTarget.getRow()/100;
+ 			int targetCol = enPassantTarget.getCol()/100;
+ 			
+ 			if (Math.abs(finalCol-initCol)==1 && Math.abs(finalRow-initRow)==1
+ 		 		 && Math.abs(finalRow-targetRow)==1 && finalCol == targetCol) {
  				killPiecesPanel.killPiece(enPassantTarget.getPiece());
  				enPassantTarget.setPiece(null);
  			}
  		}
+ 	}
+ 	
+ 	public void castling(Square initS, Square finalS) {
+ 		int row = initS.getRow()/100;
+ 		// Little castling
+		if (finalS.getCol()/100-initS.getCol()/100 == 2) {
+			Square initSRook = chessboard.getBoard()[row][7];
+			Square finalSRook = chessboard.getBoard()[row][5];
+			
+			finalSRook.setPiece(initSRook.getPiece());
+			initSRook.setPiece(null);
+		}
+		// Big castling
+		if (initS.getCol()/100-finalS.getCol()/100 == 2) {
+			Square initSRook = chessboard.getBoard()[row][0];
+			Square finalSRook = chessboard.getBoard()[row][3];
+			
+			finalSRook.setPiece(initSRook.getPiece());
+			initSRook.setPiece(null);
+		}
  	}
  	
  	public Square getEnPassantTarget() {
