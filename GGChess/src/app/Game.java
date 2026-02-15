@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import board.Chessboard;
 import board.Pawn;
+import board.Queen;
 import board.King;
 import board.Square;
 import data.Database;
@@ -109,11 +110,18 @@ public class Game extends JPanel {
     }
     
     // Move the piece from the initial to the final square
- 	public void move(Square initSquare, Square finalSquare) {
+ 	public void move(Square initSquare, Square finalSquare) { 		
+ 		// Special moves
+ 		// En passant
  		this.killEnPassantTarget(initSquare, finalSquare);
  		this.updateEnPassantTarget(initSquare, finalSquare);
  		
+ 		// Castling
  		if (initSquare.getPiece() instanceof King) this.castling(initSquare, finalSquare);
+ 		
+ 		// Pawn Promotion (promotion logic happens on initSquare, then moved to finalSquare in move
+ 		if (initSquare.getPiece() instanceof Pawn) this.promotion(initSquare, finalSquare);
+ 		
 
  		// We "kill" the piece in the final Square if there is one
  		if (finalSquare.isOccupied()) {
@@ -137,9 +145,8 @@ public class Game extends JPanel {
  				
  			}
  	}
- 
- 	
- 	public boolean isEchec(Square s) {
+
+	public boolean isEchec(Square s) {
  		for(Square sq: s.getPiece().getValidMoves()) {
 				if(sq.getPiece() instanceof King && !sq.getPiece().getColor().equals(playersPanel.getCurrentPlayerColor())) {
 					return true;
@@ -148,7 +155,7 @@ public class Game extends JPanel {
 		return false;
  	}
 
- 	public void updateEnPassantTarget(Square initS, Square finalS) {
+ 	private void updateEnPassantTarget(Square initS, Square finalS) {
  		// if pawn moved 2 squares -> lock target
  		if (initS.getPiece() instanceof Pawn && 
  				Math.abs((initS.getRow()/100)-(finalS.getRow()/100))==2) {
@@ -156,7 +163,7 @@ public class Game extends JPanel {
  		} else enPassantTarget = null;
  	}
  	
- 	public void killEnPassantTarget(Square initS, Square finalS) {
+ 	private void killEnPassantTarget(Square initS, Square finalS) {
  		if (enPassantTarget != null && initS.getPiece() instanceof Pawn) {
  			int initRow = initS.getRow()/100;
  			int initCol = initS.getCol()/100;
@@ -173,7 +180,7 @@ public class Game extends JPanel {
  		}
  	}
  	
- 	public void castling(Square initS, Square finalS) {
+ 	private void castling(Square initS, Square finalS) {
  		int row = initS.getRow()/100;
  		// Little castling
 		if (finalS.getCol()/100-initS.getCol()/100 == 2) {
@@ -192,6 +199,15 @@ public class Game extends JPanel {
 			initSRook.setPiece(null);
 		}
  	}
+ 	
+ 	private void promotion(Square initS, Square finalS) {
+ 		// Promote pawn to a queen in initSquare (then move to finalSquare in move())
+		if (initS.getPiece().getColor().equals("white") && finalS.getRow()/100==0) {
+			initS.setPiece(new Queen("white", (d.height-200)/8));
+		} else if (initS.getPiece().getColor().equals("black") && finalS.getRow()/100==7) {
+			initS.setPiece(new Queen("black", (d.height-200)/8));
+		}
+	}
  	
  	public Square getEnPassantTarget() {
  		return enPassantTarget;
