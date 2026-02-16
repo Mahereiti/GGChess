@@ -15,6 +15,7 @@ import board.Queen;
 import board.King;
 import board.Square;
 import data.Database;
+import windows.PromotionPawn;
 
 import java.sql.SQLException;
 
@@ -115,7 +116,7 @@ public class Game extends JPanel {
  		// En passant
  		this.killEnPassantTarget(initSquare, finalSquare);
  		this.updateEnPassantTarget(initSquare, finalSquare);
- 		
+
  		// Castling
  		if (initSquare.getPiece() instanceof King) this.castling(initSquare, finalSquare);
  		
@@ -203,9 +204,9 @@ public class Game extends JPanel {
  	private void promotion(Square initS, Square finalS) {
  		// Promote pawn to a queen in initSquare (then move to finalSquare in move())
 		if (initS.getPiece().getColor().equals("white") && finalS.getRow()/100==0) {
-			initS.setPiece(new Queen("white", (d.height-200)/8));
+			PromotionPawn promotionWindow = new PromotionPawn(this, finalS, "white");
 		} else if (initS.getPiece().getColor().equals("black") && finalS.getRow()/100==7) {
-			initS.setPiece(new Queen("black", (d.height-200)/8));
+			PromotionPawn promotionWindow = new PromotionPawn(this, finalS, "black");
 		}
 	}
  	
