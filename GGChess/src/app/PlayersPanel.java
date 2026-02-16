@@ -71,7 +71,7 @@ public class PlayersPanel extends JPanel {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.setColor(blackPlayerColorPanel);
-                g.fillRoundRect(this.getWidth()/2-100, 0, 200, d.height/4, 30, 30);
+                g.fillRoundRect(75, 0, this.getWidth()-150, d.height/5, 30, 30);
 			}
 		};
 		
@@ -81,20 +81,20 @@ public class PlayersPanel extends JPanel {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.setColor(whitePlayerColorPanel);
-                g.fillRoundRect(this.getWidth()/2-100, 0, 200, d.height/4, 30, 30);
+                g.fillRoundRect(75, 0, this.getWidth()-150, d.height/5, 30, 30);
 			}
 		};
 	}
 	
 	public void configurePlayerPanel(JPanel panel, String name, Clickable imgPlayer, boolean isBlack) {
-		panel.setPreferredSize(new Dimension(200, d.height/4));
+		panel.setPreferredSize(new Dimension(this.getWidth(), d.height/5));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setOpaque(false);
 		
 		// label for name
 		JLabel namePlayer = new JLabel(name);
 		namePlayer.setForeground(Color.white);
-		namePlayer.setFont(new Font("Sans-serif", Font.BOLD , 14));
+		namePlayer.setFont(new Font("Sans-serif", Font.BOLD , 30));
 		
 		if (isBlack) blackPlayerLabel = namePlayer;
 	    else whitePlayerLabel = namePlayer;

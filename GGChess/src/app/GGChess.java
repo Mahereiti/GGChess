@@ -63,6 +63,7 @@ public class GGChess extends JFrame {
 	}
 	
 	public static void main(String[] args) {
+		System.setProperty("sun.java2d.uiScale", "1.0");
 		GGChess ggc = new GGChess();
 		ggc.setVisible(true);
 	}

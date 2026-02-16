@@ -10,7 +10,7 @@ import javax.swing.JTextPane;
 
 public class RulesWindow extends BaseFrame {
 	public RulesWindow() {
-		super("Règles du jeu", 800, 600);
+		super("Règles du jeu", 1000, 800);
 		this.setContent();
 	}
 
@@ -44,5 +44,8 @@ public class RulesWindow extends BaseFrame {
 		// Layout for rulesPanel
 		contentPanel.setLayout(new BorderLayout());
 		contentPanel.add(scrollPane);
+		
+		this.revalidate();
+	    this.repaint();
 	}
 }

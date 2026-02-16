@@ -24,5 +24,8 @@ public class TurnOrderWindow extends BaseFrame {
 		text.setAlignmentX(CENTER_ALIGNMENT);
 		
 		contentPanel.add(text);
+		
+		this.revalidate();
+	    this.repaint();
 	}
 }

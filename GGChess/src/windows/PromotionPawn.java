@@ -18,7 +18,7 @@ public class PromotionPawn extends BaseFrame {
     String color;
     
     public PromotionPawn(Game gamePanel, Square pawnSquare, String color) {
-        super("Promotion", 600, 400);
+        super("Promotion", 800, 620);
         // replace closeBtn by emptyIcon (title still centered)
         Icon original = closeBtn.getIcon();
         if (original != null) {
@@ -53,7 +53,7 @@ public class PromotionPawn extends BaseFrame {
 
         JLabel textLabel = new JLabel("Remplacer le pion par :");
         textLabel.setForeground(Color.WHITE);
-        textLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
+        textLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
         textLabel.setAlignmentX(CENTER_ALIGNMENT);
         
         Clickable queenBtn = new Clickable("/promotion_string/stringQueen.png", 0, 0);
@@ -89,5 +89,8 @@ public class PromotionPawn extends BaseFrame {
         contentPanel.add(bishopBtn);
         contentPanel.add(rookBtn);
         contentPanel.add(knightBtn);
+        
+        this.revalidate();
+	    this.repaint();
     }
 }

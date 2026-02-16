@@ -39,7 +39,7 @@ public abstract class BaseFrame extends JFrame {
 		JPanel topPanel = new JPanel();
 		topPanel.setOpaque(false); 		// Transparent
 		
-		JLabel titleLabel = new JLabel("<html><h1 style='color:white; text-align:center; font-size:30px;'>"+title+"</h1></html>");
+		JLabel titleLabel = new JLabel("<html><h1 style='color:white; text-align:center; font-size:50px;'>"+title+"</h1></html>");
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 		
 		// add Bouton to close the window

@@ -20,7 +20,7 @@ public class AskNames extends BaseFrame {
     private GGChess ggchess;
     
     public AskNames(GGChess ggchess) {
-        super("Players Names", 600, 350);
+        super("Noms des joueurs", 800, 350);
         // replace closeBtn by emptyIcon (title still centered)
         Icon original = closeBtn.getIcon();
         if (original != null) {
@@ -80,6 +80,9 @@ public class AskNames extends BaseFrame {
         contentPanel.add(textLabel);
         contentPanel.add(nameField);
         contentPanel.add(validateBtn);
+        
+        this.revalidate();
+	    this.repaint();
     }
 
     public void onValidate() {

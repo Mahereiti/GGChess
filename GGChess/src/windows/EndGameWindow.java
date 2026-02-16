@@ -51,6 +51,9 @@ public class EndGameWindow extends BaseFrame {
 			this.dispose();
 		});
 		
+		this.revalidate();
+	    this.repaint();
+		
 	}
 
 }
