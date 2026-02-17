@@ -11,7 +11,7 @@ public class Mouse {
 	// Store the first square selected containing a piece
 	static Square selectedSquare1 = null; // To check 1st click before moving a piece
 	static Square redSquare = null;		// To show if the move is invalid (square becomes red)
-	static ArrayList<Square> validMoves = null;
+	static ArrayList<Square> legalMoves = null;
 	private Game game;
 	
 	public Mouse(Game game) {
@@ -20,9 +20,9 @@ public class Mouse {
 
 	// When click on square
 	public void clickOnSquare(Square s) {
-		// Reset color of all squares in validMoves
-		if (validMoves != null) {
-			for (Square sValid : validMoves) {
+		// Reset color of all squares in legalMoves
+		if (legalMoves != null) {
+			for (Square sValid : legalMoves) {
 				sValid.resetColor();
 			}
 		}
@@ -41,8 +41,8 @@ public class Mouse {
 			selectedSquare1 = s;
 			
 			// put valid moves in green
-			validMoves = selectedSquare1.getPiece().getValidMoves();
-			for (Square sValid : validMoves) {
+			legalMoves = game.getLegalMoves(selectedSquare1);
+			for (Square sValid : legalMoves) {
 				sValid.setOpaque(true);
 			    sValid.setBackground(Color.green);
 			}
@@ -51,7 +51,7 @@ public class Mouse {
 		// if a piece is already selected and it's not the same initial selected square/piece
 		else if (selectedSquare1 != null && selectedSquare1 != s) {
 			//if the move is valid
-        	if (selectedSquare1.getPiece().getValidMoves().contains(s)) {
+        	if (game.getLegalMoves(selectedSquare1).contains(s)) {
         		if (!selectedSquare1.getPiece().hasMoved()) {
         			selectedSquare1.getPiece().setHasMoved(true);
         		}
@@ -66,7 +66,7 @@ public class Mouse {
 			
 		}
 		selectedSquare1 = null; 		// Reset initial selected square
-		validMoves = null;
+		legalMoves = null;
 	}
 }
 

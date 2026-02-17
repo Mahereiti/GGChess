@@ -7,6 +7,7 @@ import app.Game;
 // Represents the entire chessboard, which extends JPanel
 public class Chessboard extends JPanel {
     private Square[][] board;
+    private Piece blackKing, whiteKing;
     Game game;
     
     public Chessboard(Game game) {
@@ -19,6 +20,22 @@ public class Chessboard extends JPanel {
     public Square[][] getBoard() {
     	return board;
     }
+    
+    public Piece getWhiteKing() {
+		return whiteKing;
+	}
+	
+	public Piece getBlackKing() {
+		return blackKing;
+	}
+	
+	public void setWhiteKing(Piece whiteKing) {
+		this.whiteKing = whiteKing;
+	}
+	
+	public void setBlackKing(Piece blackKing) {
+		this.blackKing = blackKing;
+	}
     
     public void initBoard() {
     	// Create squares line by line
@@ -39,12 +56,15 @@ public class Chessboard extends JPanel {
     	// To scale board
     	int targetH = (game.d.height-200)/8;
     	
+    	blackKing = new King("black", targetH);
+    	whiteKing = new King("white", targetH);
+    	
     	// Create and set board on board
     	board[0][0].setPiece(new Rook("black", targetH));
     	board[0][1].setPiece(new Knight("black", targetH));
     	board[0][2].setPiece(new Bishop("black", targetH));
     	board[0][3].setPiece(new Queen("black", targetH));
-    	board[0][4].setPiece(new King("black", targetH));
+    	board[0][4].setPiece(blackKing);
     	board[0][5].setPiece(new Bishop("black", targetH));
     	board[0][6].setPiece(new Knight("black", targetH));
     	board[0][7].setPiece(new Rook("black", targetH));
@@ -52,10 +72,11 @@ public class Chessboard extends JPanel {
     	board[7][1].setPiece(new Knight("white", targetH));
     	board[7][2].setPiece(new Bishop("white", targetH));
     	board[7][3].setPiece(new Queen("white", targetH));
-    	board[7][4].setPiece(new King("white", targetH));
+    	board[7][4].setPiece(whiteKing);
     	board[7][5].setPiece(new Bishop("white", targetH));
     	board[7][6].setPiece(new Knight("white", targetH));
     	board[7][7].setPiece(new Rook("white", targetH));
+    	
     	
     	for (int i=0; i<8; i++) {
         	board[6][i].setPiece(new Pawn("white", targetH, game));

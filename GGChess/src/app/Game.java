@@ -11,13 +11,16 @@ import javax.swing.JPanel;
 
 import board.Chessboard;
 import board.Pawn;
+import board.Piece;
 import board.Queen;
 import board.King;
 import board.Square;
 import data.Database;
+import windows.InCheckWindow;
 import windows.PromotionPawn;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 // Class which represents the chess game, extends JPanel
 public class Game extends JPanel {
@@ -110,6 +113,35 @@ public class Game extends JPanel {
         this.add(killPiecesPanel, BorderLayout.EAST);	// add killPiecesPanel
     }
     
+    public ArrayList<Square> getLegalMoves(Square initS) {
+    	// Check if move possible and don't put king in check
+    	Piece p = initS.getPiece();
+    	
+    	ArrayList<Square> legalMoves = new ArrayList<Square>();
+    	
+    	for (Square potentialS : initS.getPiece().getValidMoves()) {
+    		if (isSafeMove(initS, potentialS)) {
+    			legalMoves.add(potentialS);
+    		}
+    	}
+    	
+    	return legalMoves;
+    }
+    
+    public boolean isSafeMove(Square initS, Square finalS) {
+    	Piece initP = initS.getPiece();
+    	Piece finalP = finalS.getPiece();
+    	// simulation
+    	initS.setPiece(null);
+    	finalS.setPiece(initP);
+    	// check if move is safe
+    	boolean safe = !isInCheck(initP.getColor());
+    	// go back
+    	initS.setPiece(initP);
+    	finalS.setPiece(finalP);
+    	return safe;
+    }
+    
     // Move the piece from the initial to the final square
  	public void move(Square initSquare, Square finalSquare) { 		
  		// Special moves
@@ -140,21 +172,42 @@ public class Game extends JPanel {
  				}
  			}
  		}
+ 		
  		finalSquare.setPiece(initSquare.getPiece()); 	// Put the piece in the final Square
  		initSquare.setPiece(null); 		// Remove the piece from the init Square
- 		if (isEchec(finalSquare)) {
- 				
- 			}
+ 		
+ 		// Check if opponent in check
+ 		String opponentColor;
+		if (finalSquare.getPiece().getColor().equals("white")) opponentColor = "black"; 
+		else opponentColor = "white";
+ 		if (isInCheck(opponentColor)) {
+ 			new InCheckWindow();
+ 		}
+ 		
  	}
-
-	public boolean isEchec(Square s) {
- 		for(Square sq: s.getPiece().getValidMoves()) {
-				if(sq.getPiece() instanceof King && !sq.getPiece().getColor().equals(playersPanel.getCurrentPlayerColor())) {
-					return true;
-				}
-		}
+	
+	public boolean isInCheck(String color) {
+		Square kingS;
+		if (color.equals("white")) kingS = chessboard.getWhiteKing().getSquare();
+		else kingS = chessboard.getBlackKing().getSquare();
+		
+		String opponentColor;
+		if (color.equals("white")) opponentColor = "black"; 
+		else opponentColor = "white";
+		
+		for (int row=0; row<8; row++) {
+    		for (int col=0; col<8; col++) {
+    			Square s = chessboard.getBoard()[row][col];
+    			// if opponent Piece, check if king in check
+    			if (s.isOccupied() && s.getPiece().getColor().equals(opponentColor)) {
+    				if (s.getPiece().getValidMoves().contains(kingS)) {
+    					return true;
+    				}
+    			}
+    		}
+    	}
 		return false;
- 	}
+	}
 
  	private void updateEnPassantTarget(Square initS, Square finalS) {
  		// if pawn moved 2 squares -> lock target
