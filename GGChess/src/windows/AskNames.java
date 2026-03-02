@@ -106,7 +106,7 @@ public class AskNames extends BaseFrame {
             ggchess.getGamePanel().playersPanel.updatePlayerName(false, name);
             //We close the window
             dispose();
-            new TurnOrderWindow(ggchess.getGamePanel().playersPanel.getCurrentPlayerName());
+            new TurnOrderWindow(ggchess);
         }
     }
 }

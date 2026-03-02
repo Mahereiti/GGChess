@@ -12,12 +12,11 @@ import javax.swing.JPanel;
 import board.Chessboard;
 import board.Pawn;
 import board.Piece;
-import board.Queen;
 import board.King;
 import board.Square;
 import data.Database;
+import windows.EndGameWindow;
 import windows.InCheckWindow;
-import windows.InCheckmateWindow;
 import windows.PromotionPawn;
 
 import java.sql.SQLException;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 public class Game extends JPanel {
 	public GGChess windowPrincipal;
 	public Dimension d;
-	private boolean isPlaying;
+	public boolean isPlaying;
 	public PlayersPanel playersPanel;
 	KillPiecesPanel killPiecesPanel;
 	Chessboard chessboard;
@@ -55,8 +54,8 @@ public class Game extends JPanel {
     public void initBtnsPanel() {
     	// Create btns
         Clickable menuBtn  = new Clickable("/galaxy/menu_b.png", 0, 0);
-        Clickable playPauseBtn = new Clickable("/galaxy/pause.png", 0, 0);
-        Clickable replayBtn = new Clickable("/galaxy/reset_b.png", 0, 0);
+        Clickable stopBtn = new Clickable("/galaxy/pause.png", 0, 0);
+        Clickable replayBtn = new Clickable("/galaxy/replay_b.png", 0, 0);
         
         // Create imageIcon to be able to change between play and pause btn
         ImageIcon play = new ImageIcon(getClass().getResource("/galaxy/play_b.png"));
@@ -64,21 +63,21 @@ public class Game extends JPanel {
         
         // Scale btns to fit screen size
         menuBtn.scaleH(d.height/12);
-        playPauseBtn.scaleH(d.height/12);
+        stopBtn.scaleH(d.height/12);
         replayBtn.scaleH(d.height/12);
         
         // add actions to btn
         menuBtn.addActionListener(e -> windowPrincipal.showMenu());
         replayBtn.addActionListener(e-> this.resetGame());
-        playPauseBtn.addActionListener(e-> {
+        stopBtn.addActionListener(e-> {
         	if (isPlaying) {
         		playersPanel.pauseTimer();
-        		playPauseBtn.setIcon(play);
+        		stopBtn.setIcon(play);
         	} else {
         		playersPanel.resumeTimer();
-        		playPauseBtn.setIcon(pause);
+        		stopBtn.setIcon(pause);
         	}
-            playPauseBtn.scaleH(d.height/12);
+            stopBtn.scaleH(d.height/12);
         	isPlaying = !isPlaying;
         });
         
@@ -87,7 +86,7 @@ public class Game extends JPanel {
         btnsPanel.setLayout(new BoxLayout(btnsPanel, BoxLayout.X_AXIS));
         btnsPanel.add(Box.createHorizontalGlue());
         btnsPanel.add(menuBtn);
-        btnsPanel.add(playPauseBtn);
+        btnsPanel.add(stopBtn);
         btnsPanel.add(replayBtn);
         btnsPanel.add(Box.createHorizontalGlue());
         btnsPanel.setOpaque(false);		// Transparent
@@ -146,7 +145,7 @@ public class Game extends JPanel {
     }
     
     // Move the piece from the initial to the final square
- 	public void move(Square initSquare, Square finalSquare) { 		
+ 	public void move(Square initSquare, Square finalSquare) { 	
  		// Special moves
  		// En passant
  		this.killEnPassantTarget(initSquare, finalSquare);
@@ -184,13 +183,15 @@ public class Game extends JPanel {
 		if (finalSquare.getPiece().getColor().equals("white")) opponentColor = "black"; 
 		else opponentColor = "white";
  		if (isInCheck(opponentColor)) {
+ 			// end game : checkmate
  			if (!hasLegalMoves(opponentColor)) {
- 		        new InCheckmateWindow(); //
+                this.playersPanel.gameTimer.stop();
+                EndGameWindow endWindow = new EndGameWindow(this, playersPanel.getCurrentPlayer(), playersPanel.getNonCurrentPlayer());
+                this.isPlaying = !this.isPlaying;	// stop game, block moves
  		    } else {
  		        new InCheckWindow();
  		    }
  		}
- 		
  	}
 	
 	public boolean isInCheck(String color) {
@@ -298,6 +299,7 @@ public class Game extends JPanel {
 		chessboard.resetBoard();
 		killPiecesPanel.reset();
 		playersPanel.reset();
+		isPlaying = true;
 	}
 }
 

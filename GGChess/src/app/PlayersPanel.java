@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import data.Player;
+import windows.EndGameWindow;
 
 // Player panels
 public class PlayersPanel extends JPanel {
@@ -31,12 +32,14 @@ public class PlayersPanel extends JPanel {
     private JLabel blackTimerLabel;
     private JLabel whiteTimerLabel;
     
+    public Game game;
     public Timer gameTimer;
     
     private int whiteTime = 300; // 300 seconds = 5 min
     private int blackTime = 300;
 	
 	public PlayersPanel(Game g) {
+		this.game = g;
 		this.d = g.d;
 		
 		// init players
@@ -180,10 +183,16 @@ public class PlayersPanel extends JPanel {
 	            }
 
 	            updateTimers(whiteTime,blackTime);
-
-	            if (whiteTime <= 0 || blackTime <= 0) {
+	            
+	            // end game
+	            if (whiteTime <= 0) {
 	                gameTimer.stop();
-	                // open victory window
+	                EndGameWindow endWindow = new EndGameWindow(game, whitePlayer, blackPlayer);
+	                game.isPlaying = !game.isPlaying;	// stop game, block moves
+	            } else if (blackTime <= 0) {
+	                gameTimer.stop();
+	                EndGameWindow endWindow = new EndGameWindow(game, blackPlayer, whitePlayer);
+	                game.isPlaying = !game.isPlaying;	// stop game, block moves
 	            }
 	        }
 	    });
@@ -218,6 +227,12 @@ public class PlayersPanel extends JPanel {
 		return currentPlayer;
 	}
 	
+	public Player getNonCurrentPlayer() {
+		if(currentPlayer == whitePlayer) {
+			return blackPlayer;
+		} else return whitePlayer;
+	}
+	
 	public String getCurrentPlayerName() {
 		return currentPlayer.getName();
 	}
@@ -245,5 +260,9 @@ public class PlayersPanel extends JPanel {
 	
 	public void reset() {
 		if (currentPlayer == blackPlayer) switchPlayer();	// white starts
+		
+		//reset timer
+		whiteTime = 300;
+		blackTime = 300;
 	}
 }

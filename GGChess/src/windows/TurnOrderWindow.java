@@ -4,15 +4,18 @@ import java.awt.Font;
 
 import javax.swing.JLabel;
 import data.Player;
+import app.GGChess;
 import app.Game;
 
 
 public class TurnOrderWindow extends BaseFrame {
 	private String firstPlayer;
+	private GGChess ggchess;
 
-	public TurnOrderWindow(String firstPlayer) {
+	public TurnOrderWindow(GGChess ggchess) {
 		super("Tour", 600, 200);
-		this.firstPlayer = firstPlayer;
+		this.ggchess = ggchess;
+		this.firstPlayer = ggchess.getGamePanel().playersPanel.getCurrentPlayerName();
 		
 		this.setContent();
 	}
@@ -26,7 +29,7 @@ public class TurnOrderWindow extends BaseFrame {
 		
 		contentPanel.add(text);
 		closeBtn.addActionListener(e -> {
-		    game.playersPanel.startTimer();
+		    ggchess.getGamePanel().playersPanel.startTimer();
 		});
 		this.revalidate();
 	    this.repaint();
