@@ -9,6 +9,10 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import data.Player;
 
@@ -24,6 +28,13 @@ public class PlayersPanel extends JPanel {
     
     private JLabel blackPlayerLabel;
     private JLabel whitePlayerLabel;
+    private JLabel blackTimerLabel;
+    private JLabel whiteTimerLabel;
+    
+    public Timer gameTimer;
+    
+    private int whiteTime = 300; // 300 seconds = 5 min
+    private int blackTime = 300;
 	
 	public PlayersPanel(Game g) {
 		this.d = g.d;
@@ -71,7 +82,7 @@ public class PlayersPanel extends JPanel {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.setColor(blackPlayerColorPanel);
-                g.fillRoundRect(75, 0, this.getWidth()-150, d.height/5, 30, 30);
+                g.fillRoundRect(75, 0, this.getWidth()-150, d.height/4, 30, 30);
 			}
 		};
 		
@@ -81,13 +92,13 @@ public class PlayersPanel extends JPanel {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.setColor(whitePlayerColorPanel);
-                g.fillRoundRect(75, 0, this.getWidth()-150, d.height/5, 30, 30);
+                g.fillRoundRect(75, 0, this.getWidth()-150, d.height/4, 30, 30);
 			}
 		};
 	}
 	
 	public void configurePlayerPanel(JPanel panel, String name, Clickable imgPlayer, boolean isBlack) {
-		panel.setPreferredSize(new Dimension(this.getWidth(), d.height/5));
+		panel.setPreferredSize(new Dimension(this.getWidth(), d.height/3));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setOpaque(false);
 		
@@ -99,13 +110,25 @@ public class PlayersPanel extends JPanel {
 		if (isBlack) blackPlayerLabel = namePlayer;
 	    else whitePlayerLabel = namePlayer;
 		
+		//label for timer
+		
+		JLabel TimerLabel = new JLabel("05:00");
+		if (isBlack) blackTimerLabel = TimerLabel;
+	    else whiteTimerLabel = TimerLabel;
+		
 		// center align
 		panel.setAlignmentX(CENTER_ALIGNMENT);
 		imgPlayer.setAlignmentX(CENTER_ALIGNMENT);
 		namePlayer.setAlignmentX(CENTER_ALIGNMENT);
+		TimerLabel.setAlignmentX(CENTER_ALIGNMENT);
+		
+		//The properties for the timers labels
+		TimerLabel.setFont(new Font("Sans-serif", Font.BOLD, 40));
+		TimerLabel.setForeground(Color.RED);
 		
 		panel.add(imgPlayer);
 		panel.add(namePlayer);
+		panel.add(TimerLabel);
 		panel.add(Box.createGlue()); //space
 	}
 	
@@ -140,6 +163,55 @@ public class PlayersPanel extends JPanel {
 		whitePlayerColorPanel = tempC;
 		blackPlayerPanel.repaint();
 		whitePlayerPanel.repaint();
+		
+		updateTimers(whiteTime,blackTime);
+	}
+	
+	public void startTimer() {
+
+	    gameTimer = new Timer(1000, new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+
+	            if (currentPlayer.getColor().equals("white")) {
+	                whiteTime--;
+	            } else {
+	                blackTime--;
+	            }
+
+	            updateTimers(whiteTime,blackTime);
+
+	            if (whiteTime <= 0 || blackTime <= 0) {
+	                gameTimer.stop();
+	                // open victory window
+	            }
+	        }
+	    });
+
+	    gameTimer.start();
+	}
+	
+	public void pauseTimer() {
+	    if (gameTimer != null && gameTimer.isRunning()) {
+	        gameTimer.stop();
+	    }
+	}
+
+	public void resumeTimer() {
+	    if (gameTimer != null && !gameTimer.isRunning()) {
+	        gameTimer.start();
+	    }
+	}
+	
+	public void updateTimers(int whiteTime, int blackTime) {
+		whiteTimerLabel.setText(formatTime(whiteTime));
+		blackTimerLabel.setText(formatTime(blackTime));
+	}
+
+	private String formatTime(int seconds) {
+		int minutes = seconds / 60;
+		int secs = seconds % 60;
+		return String.format("%02d:%02d", minutes, secs);
 	}
 	
 	public Player getCurrentPlayer() {

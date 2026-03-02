@@ -17,6 +17,7 @@ import board.King;
 import board.Square;
 import data.Database;
 import windows.InCheckWindow;
+import windows.InCheckmateWindow;
 import windows.PromotionPawn;
 
 import java.sql.SQLException;
@@ -71,8 +72,10 @@ public class Game extends JPanel {
         replayBtn.addActionListener(e-> this.resetGame());
         playPauseBtn.addActionListener(e-> {
         	if (isPlaying) {
+        		playersPanel.pauseTimer();
         		playPauseBtn.setIcon(play);
         	} else {
+        		playersPanel.resumeTimer();
         		playPauseBtn.setIcon(pause);
         	}
             playPauseBtn.scaleH(d.height/12);
@@ -181,7 +184,11 @@ public class Game extends JPanel {
 		if (finalSquare.getPiece().getColor().equals("white")) opponentColor = "black"; 
 		else opponentColor = "white";
  		if (isInCheck(opponentColor)) {
- 			new InCheckWindow();
+ 			if (!hasLegalMoves(opponentColor)) {
+ 		        new InCheckmateWindow(); //
+ 		    } else {
+ 		        new InCheckWindow();
+ 		    }
  		}
  		
  	}
@@ -207,6 +214,22 @@ public class Game extends JPanel {
     		}
     	}
 		return false;
+	}
+	
+	public boolean hasLegalMoves(String color) {
+	    for (int row = 0; row < 8; row++) {
+	        for (int col = 0; col < 8; col++) {
+	            Square s = chessboard.getBoard()[row][col];
+
+	            if (s.isOccupied() && s.getPiece().getColor().equals(color)) {
+	                ArrayList<Square> moves = getLegalMoves(s);
+	                if (!moves.isEmpty()) {
+	                    return true; //At least one move is possible to avoid the inCheck
+	                }
+	            }
+	        }
+	    }
+	    return false; //no legal move for any piece
 	}
 
  	private void updateEnPassantTarget(Square initS, Square finalS) {

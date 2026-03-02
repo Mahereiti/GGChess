@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import data.Player;
 import app.Game;
 
+
 public class TurnOrderWindow extends BaseFrame {
 	private String firstPlayer;
 
@@ -24,7 +25,9 @@ public class TurnOrderWindow extends BaseFrame {
 		text.setAlignmentX(CENTER_ALIGNMENT);
 		
 		contentPanel.add(text);
-		
+		closeBtn.addActionListener(e -> {
+		    game.playersPanel.startTimer();
+		});
 		this.revalidate();
 	    this.repaint();
 	}

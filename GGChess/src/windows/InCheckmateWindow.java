@@ -1,9 +1,8 @@
 package windows;
 
-public class InCheckWindow extends BaseFrame {
-
-	public InCheckWindow() {
-		super("In Check", 600, 120);
+public class InCheckmateWindow extends BaseFrame {
+	public InCheckmateWindow() {
+		super("Checkmate", 600, 120);
 		this.setContent();
 	}
 
