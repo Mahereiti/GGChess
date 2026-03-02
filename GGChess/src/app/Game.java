@@ -16,8 +16,10 @@ import board.King;
 import board.Square;
 import data.Database;
 import windows.EndGameWindow;
+import windows.GiveUp;
 import windows.InCheckWindow;
 import windows.PromotionPawn;
+import windows.RulesWindow;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -54,40 +56,22 @@ public class Game extends JPanel {
     public void initBtnsPanel() {
     	// Create btns
         Clickable menuBtn  = new Clickable("/galaxy/menu_b.png", 0, 0);
-        Clickable stopBtn = new Clickable("/galaxy/pause.png", 0, 0);
-        Clickable replayBtn = new Clickable("/galaxy/replay_b.png", 0, 0);
-        
-        // Create imageIcon to be able to change between play and pause btn
-        ImageIcon play = new ImageIcon(getClass().getResource("/galaxy/play_b.png"));
-        ImageIcon pause = new ImageIcon(getClass().getResource("/galaxy/pause.png"));
+        Clickable rulesBtn = new Clickable("/galaxy/rules_b.png", 0, 0);
         
         // Scale btns to fit screen size
         menuBtn.scaleH(d.height/12);
-        stopBtn.scaleH(d.height/12);
-        replayBtn.scaleH(d.height/12);
+        rulesBtn.scaleH(d.height/12);
         
         // add actions to btn
-        menuBtn.addActionListener(e -> windowPrincipal.showMenu());
-        replayBtn.addActionListener(e-> this.resetGame());
-        stopBtn.addActionListener(e-> {
-        	if (isPlaying) {
-        		playersPanel.pauseTimer();
-        		stopBtn.setIcon(play);
-        	} else {
-        		playersPanel.resumeTimer();
-        		stopBtn.setIcon(pause);
-        	}
-            stopBtn.scaleH(d.height/12);
-        	isPlaying = !isPlaying;
-        });
+        menuBtn.addActionListener(e -> new GiveUp(this, playersPanel.getCurrentPlayer(), playersPanel.getNonCurrentPlayer()));
+        rulesBtn.addActionListener(e-> new RulesWindow());
         
         JPanel btnsPanel = new JPanel();
         // Layout of btnsPanel with spaces
         btnsPanel.setLayout(new BoxLayout(btnsPanel, BoxLayout.X_AXIS));
         btnsPanel.add(Box.createHorizontalGlue());
         btnsPanel.add(menuBtn);
-        btnsPanel.add(stopBtn);
-        btnsPanel.add(replayBtn);
+        btnsPanel.add(rulesBtn);
         btnsPanel.add(Box.createHorizontalGlue());
         btnsPanel.setOpaque(false);		// Transparent
         

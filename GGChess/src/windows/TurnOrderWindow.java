@@ -1,6 +1,8 @@
 package windows;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JLabel;
 import data.Player;
@@ -31,6 +33,13 @@ public class TurnOrderWindow extends BaseFrame {
 		closeBtn.addActionListener(e -> {
 		    ggchess.getGamePanel().playersPanel.startTimer();
 		});
+		closeBtn.addKeyListener(new KeyAdapter() {	// touch enter
+        	@Override
+        	public void keyPressed(KeyEvent e) {
+        		ggchess.getGamePanel().playersPanel.startTimer();
+        	}
+        });
+		
 		this.revalidate();
 	    this.repaint();
 	}

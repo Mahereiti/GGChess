@@ -3,6 +3,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.Box;
@@ -45,6 +47,12 @@ public abstract class BaseFrame extends JFrame {
 		// add Bouton to close the window
 		closeBtn = new Clickable("/galaxy/close.png", 0, 0);
 		closeBtn.addActionListener(e->this.dispose());
+		closeBtn.addKeyListener(new KeyAdapter() {	// touch enter
+        	@Override
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER) dispose();
+        	}
+        });
 		
 		// add to topPanel : close btn + title + fixed space
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS)); // Horizontal Layout

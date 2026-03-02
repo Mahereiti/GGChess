@@ -35,8 +35,8 @@ public class PlayersPanel extends JPanel {
     public Game game;
     public Timer gameTimer;
     
-    private int whiteTime = 300; // 300 seconds = 5 min
-    private int blackTime = 300;
+    private int whiteTime = 3; // 300 seconds = 5 min
+    private int blackTime = 3;
 	
 	public PlayersPanel(Game g) {
 		this.game = g;
